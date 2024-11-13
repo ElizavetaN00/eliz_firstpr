@@ -13,7 +13,6 @@ import 'color_crystal.dart';
 class HexTile extends PositionComponent
     with HasGameRef<AppGame>, CollisionCallbacks {
   final Function() onUpdateTile;
-  static const double tileRadius = 60.0;
   bool isTileRemoved = false;
 
   // Modified getter to also check if crystal sprite exists
@@ -22,24 +21,25 @@ class HexTile extends PositionComponent
 
   ColorCrystal colorCrystal = ColorCrystal();
   SpriteComponent? crystalSprite;
+  final double tileRadius;
 
   HexTile(
     Vector2 position,
     this.onUpdateTile,
+    this.tileRadius,
   ) : super(
             position: position,
             size: Vector2.all(tileRadius * 1.8),
             anchor: Anchor.topLeft);
   var hexBackground = HexBackground(
-    radius: tileRadius,
+    radius: 1,
     position: Vector2.zero(),
   );
   @override
   FutureOr<void> onLoad() {
     debugMode = true;
     anchor = Anchor.topLeft;
-    add(RectangleHitbox(
-        size: size * 0.9, isSolid: true, position: size * 0.05));
+    add(RectangleHitbox(size: size * 0.8, isSolid: true, position: size * 0.1));
     hexBackground = HexBackground(
       radius: tileRadius,
       position: Vector2.zero(),
@@ -57,7 +57,7 @@ class HexTile extends PositionComponent
       var spriteCrystal = Sprite(Flame.images.fromCache(firstColor));
       crystalSprite = SpriteComponent(
           sprite: spriteCrystal,
-          size: Vector2.all(tileRadius * 1.8),
+          size: Vector2.all(tileRadius * 1.7),
           anchor: Anchor.topLeft);
       colorCrystal.currentColor = color;
       add(crystalSprite!);

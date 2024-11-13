@@ -2,6 +2,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../data/storage/storage.dart';
@@ -43,6 +44,7 @@ class GamePage extends PositionComponent with TapCallbacks {
           imageBg,
         ),
       ),
+      frameSprite,
       SpriteWithTap(
         anchor: Anchor.topLeft,
         size: LogicalSize.logicalSize(173, 153),
@@ -78,6 +80,7 @@ class GamePage extends PositionComponent with TapCallbacks {
 
   onSetTile() {
     removeWhere((element) => element is CrystallForTile);
+    if (AppStorage.soundEnabled.val) FlameAudio.play('remove4gems.wav');
     game.nextColor();
     add(currentCrystalComponent);
   }

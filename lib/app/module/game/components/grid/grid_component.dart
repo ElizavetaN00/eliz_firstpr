@@ -1,14 +1,20 @@
 import 'dart:collection';
 import 'dart:math';
+import 'package:color_puzzle/app/module/game/components/logical_size_component.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import '../hextile/hextile_component.dart';
 
 class HexGridComponent extends PositionComponent {
   final List<int> rowStructure = [5, 6, 6, 6, 5];
-  static const double tileRadius = 40.0;
-  static const double horizontalSpacing = tileRadius * 3;
-  static final double verticalSpacing = tileRadius * sqrt(3) * 1.5;
+  static double tileRadius = LogicalSize.logicalHight(120);
+  static final double innerDiameter = tileRadius * sqrt(3);
+
+  // Определяем отступы с учетом r и дополнительного отступа 12
+  static final double horizontalSpacing =
+      innerDiameter + LogicalSize.logicalWidth(20);
+  static final double verticalSpacing =
+      innerDiameter - LogicalSize.logicalHight(20);
 
   List<List<HexTile>> hexTiles = [];
 
@@ -39,8 +45,8 @@ class HexGridComponent extends PositionComponent {
           row * verticalSpacing,
         );
 
-        final hexTile =
-            HexTile(tilePosition, () => findAndRemoveMatchingTiles(row, col));
+        final hexTile = HexTile(tilePosition,
+            () => findAndRemoveMatchingTiles(row, col), tileRadius);
         rowTiles.add(hexTile);
         add(hexTile);
       }
