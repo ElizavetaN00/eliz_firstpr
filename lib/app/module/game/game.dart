@@ -1,7 +1,9 @@
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/material.dart' as m;
 
 import '../../../data/app_resources.dart';
+import 'components/hextile/color_crystal.dart';
 import 'components/logical_size_component.dart';
 import 'pages/game_over_route.dart';
 import 'pages/level_page.dart';
@@ -10,6 +12,14 @@ import 'pages/menu_page.dart';
 
 class AppGame extends FlameGame with HasCollisionDetection {
   late final RouterComponent router;
+
+  m.Color get currentColor => holeColorList.last;
+  List<m.Color> holeColorList = ColorCrystal.baseColors;
+
+  nextColor() {
+    holeColorList.insert(0, holeColorList.last);
+    holeColorList.removeLast();
+  }
 
   @override
   void onGameResize(Vector2 size) {
