@@ -86,13 +86,15 @@ class GamePage extends PositionComponent with TapCallbacks {
   void update(double dt) {}
 
   onCollision() {
-    AppStorage.bestMiles.val = math.max(AppStorage.bestMiles.val, player.timer.round());
+    AppStorage.bestMiles.val =
+        math.max(AppStorage.bestMiles.val, player.timer.round());
     AppStorage.lastScore.val = player.timer.round();
     game.router.pushNamed('game_over');
   }
 }
 
-class CrystallForTile extends SpriteComponent with DragCallbacks, CollisionCallbacks {
+class CrystallForTile extends SpriteComponent
+    with DragCallbacks, CollisionCallbacks {
   CrystallForTile({
     required Vector2 position,
     required this.colorCrystal,
@@ -105,11 +107,13 @@ class CrystallForTile extends SpriteComponent with DragCallbacks, CollisionCallb
             100,
           ),
         ) {
-    sprite = Sprite(Flame.images.fromCache(colorCrystal.getFirstColor(colorCrystal.currentColor)));
+    sprite = Sprite(Flame.images
+        .fromCache(colorCrystal.getFirstColor(colorCrystal.currentColor)));
     startPosition = position;
     debugMode = true;
     add(
-      RectangleHitbox(size: Vector2.all(1), anchor: Anchor.center, position: size / 2),
+      RectangleHitbox(
+          size: Vector2.all(1), anchor: Anchor.center, position: size / 2),
     );
   }
 
@@ -138,7 +142,7 @@ class CrystallForTile extends SpriteComponent with DragCallbacks, CollisionCallb
     if (canBeSetted) {
       if (other is HexTile) {
         other.setColor(this);
-        onRemove();
+        removeFromParent();
       }
     }
 

@@ -1,7 +1,7 @@
+import 'dart:collection';
 import 'dart:math';
-
 import 'package:flame/components.dart';
-
+import 'package:flutter/material.dart';
 import '../hextile/hextile_component.dart';
 
 class HexGridComponent extends PositionComponent {
@@ -9,9 +9,6 @@ class HexGridComponent extends PositionComponent {
   static const double tileRadius = 40.0;
   static const double horizontalSpacing = tileRadius * 3;
   static final double verticalSpacing = tileRadius * sqrt(3) * 1.5;
-  onTapTile() {
-    checkForFourInARow();
-  }
 
   List<List<HexTile>> hexTiles = [];
 
@@ -28,7 +25,8 @@ class HexGridComponent extends PositionComponent {
 
     for (int row = 0; row < rowStructure.length; row++) {
       final tileCount = rowStructure[row];
-      double offsetX = (rowStructure.reduce(max) - tileCount) * horizontalSpacing / 2;
+      double offsetX =
+          (rowStructure.reduce(max) - tileCount) * horizontalSpacing / 2;
 
       if (row == 2) {
         offsetX -= horizontalSpacing / 2;
@@ -41,7 +39,8 @@ class HexGridComponent extends PositionComponent {
           row * verticalSpacing,
         );
 
-        final hexTile = HexTile(tilePosition, () => onTapTile());
+        final hexTile =
+            HexTile(tilePosition, () => findAndRemoveMatchingTiles(row, col));
         rowTiles.add(hexTile);
         add(hexTile);
       }
@@ -49,45 +48,98 @@ class HexGridComponent extends PositionComponent {
     }
   }
 
-  // Method to check for four identical adjacent tiles
-  bool checkForFourInARow() {
-    for (int row = 0; row < hexTiles.length; row++) {
-      for (int col = 0; col < hexTiles[row].length; col++) {
-        HexTile tile = hexTiles[row][col];
-        if (_hasFourAdjacentTiles(row, col, tile)) {
-          tile.deleteTile();
-          return true;
-        }
+  void findAndRemoveMatchingTiles(int startRow, int startCol) {
+    print('Starting match check at row: $startRow, col: $startCol');
+
+    final HexTile startTile = hexTiles[startRow][startCol];
+    if (startTile.isTileRemoved) {
+      print('Tile is already removed');
+      return;
+    }
+
+    final Color colorToMatch = startTile.colorCrystal.currentColor;
+    if (colorToMatch == Colors.transparent) {
+      print('Cannot match transparent color');
+      return;
+    }
+
+    print('Matching color: $colorToMatch');
+
+    final matchingTiles = <HexTile>[];
+    final visited = HashSet<String>();
+
+    void dfs(int row, int col) {
+      // Check bounds
+      if (row < 0 ||
+          row >= hexTiles.length ||
+          col < 0 ||
+          col >= hexTiles[row].length) {
+        return;
+      }
+
+      final String key = '$row,$col';
+      if (visited.contains(key)) {
+        return;
+      }
+
+      final HexTile tile = hexTiles[row][col];
+
+      // Skip if tile is removed or color doesn't match
+      if (tile.isTileRemoved ||
+          tile.colorCrystal.currentColor != colorToMatch ||
+          tile.colorCrystal.currentColor == Colors.transparent) {
+        return;
+      }
+
+      print('Found matching tile at row: $row, col: $col');
+      visited.add(key);
+      matchingTiles.add(tile);
+
+      // Get correct neighbors based on row parity (even/odd)
+      final List<List<int>> neighbors = getNeighbors(row, col);
+
+      for (final List<int> neighbor in neighbors) {
+        final newRow = row + neighbor[0];
+        final newCol = col + neighbor[1];
+        dfs(newRow, newCol);
       }
     }
-    return false;
+
+    // Start DFS from the initial tile
+    dfs(startRow, startCol);
+
+    print('Found ${matchingTiles.length} matching tiles');
+
+    // Delete tiles if we found 4 or more matches
+    if (matchingTiles.length >= 4) {
+      print('Deleting ${matchingTiles.length} matching tiles');
+      for (final tile in matchingTiles) {
+        print('Deleting tile at position: ${tile.position}');
+        tile.deleteTile();
+      }
+    }
   }
 
-  bool _hasFourAdjacentTiles(int row, int col, HexTile tile) {
-    int matchCount = 1;
-    final adjacentOffsets = [
-      [-1, 0], [1, 0], // above and below
-      [0, -1], [0, 1], // left and right
-      [-1, 1], [1, -1] // diagonals
-    ];
-
-    for (final offset in adjacentOffsets) {
-      int newRow = row + offset[0];
-      int newCol = col + offset[1];
-
-      if (newRow >= 0 &&
-          newRow < hexTiles.length &&
-          newCol >= 0 &&
-          newCol < hexTiles[newRow].length &&
-          hexTiles[newRow][newCol].colorCrystal.currentColor == tile.colorCrystal.currentColor) {
-        matchCount++;
-      }
-
-      if (matchCount >= 4) {
-        return true;
-      }
+  List<List<int>> getNeighbors(int row, int col) {
+    // Different neighbor patterns for even and odd rows
+    if (row % 2 == 0) {
+      return [
+        [-1, -1], // top left
+        [-1, 0], // top right
+        [0, -1], // left
+        [0, 1], // right
+        [1, -1], // bottom left
+        [1, 0] // bottom right
+      ];
+    } else {
+      return [
+        [-1, 0], // top left
+        [-1, 1], // top right
+        [0, -1], // left
+        [0, 1], // right
+        [1, 0], // bottom left
+        [1, 1] // bottom right
+      ];
     }
-
-    return false;
   }
 }
