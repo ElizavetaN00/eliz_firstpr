@@ -1,6 +1,6 @@
 import 'package:flame/game.dart';
 
-import 'game_over_page.dart';
+import '../pages/game_over_page.dart';
 
 class GameOverRoute extends Route {
   GameOverRoute()

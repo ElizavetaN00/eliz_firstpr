@@ -1,9 +1,7 @@
-import 'dart:math';
-import 'dart:ui';
-
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../data/storage/storage.dart';
 import '../components/player/player.dart';
@@ -19,9 +17,19 @@ class GamePage extends PositionComponent with TapCallbacks {
 
   @override
   Future<void> onLoad() async {
-    final imageBg = Flame.images.fromCache('Background 2.png');
+    final imageBg = Flame.images.fromCache('Background-Secondary.png');
     final settingImage = Flame.images.fromCache('Btn-Setting.png');
     final restartImage = Flame.images.fromCache('Btn-Restart.png');
+    final frame = Flame.images.fromCache('Sidebar (2).png');
+    final frameSprite = SpriteComponent(
+      size: LogicalSize.logicalSize(430, 1040),
+      position: LogicalSize.logicalSize(1710, 20),
+      paint: Paint()..color = Colors.white.withOpacity(0.5),
+      sprite: Sprite(
+        frame,
+      ),
+    );
+
     size = game.canvasSize;
 
     addAll([
@@ -34,18 +42,18 @@ class GamePage extends PositionComponent with TapCallbacks {
       SpriteWithTap(
         anchor: Anchor.topLeft,
         size: LogicalSize.logicalSize(173, 153),
-        position: Vector2(40, 40),
+        position: LogicalSize.logicalSize(40, 40),
         sprite: Sprite(
           settingImage,
         ),
         onTap: () {
-          game.router.pushNamed('menu');
+          game.router.pushNamed('settings');
         },
       ),
       SpriteWithTap(
         anchor: Anchor.topLeft,
         size: LogicalSize.logicalSize(173, 153),
-        position: Vector2(40, 253),
+        position: LogicalSize.logicalSize(40, 253),
         sprite: Sprite(
           restartImage,
         ),
@@ -53,6 +61,7 @@ class GamePage extends PositionComponent with TapCallbacks {
           game.router.pushNamed('game');
         },
       ),
+      frameSprite,
     ]);
   }
 
@@ -64,10 +73,5 @@ class GamePage extends PositionComponent with TapCallbacks {
         math.max(AppStorage.bestMiles.val, player.timer.round());
     AppStorage.lastScore.val = player.timer.round();
     game.router.pushNamed('game_over');
-  }
-
-  @override
-  void onTapDown(TapDownEvent event) {
-    player.jump(); // Прыжок игрока
   }
 }

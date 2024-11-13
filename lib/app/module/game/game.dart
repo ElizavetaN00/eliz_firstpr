@@ -1,9 +1,10 @@
+import 'package:color_puzzle/app/module/game/routes/settings_route.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 
 import '../../../data/app_resources.dart';
 import 'components/logical_size_component.dart';
-import 'pages/game_over_route.dart';
+import 'routes/game_over_route.dart';
 import 'pages/level_page.dart';
 import 'pages/menu_loading_page.dart';
 import 'pages/menu_page.dart';
@@ -30,6 +31,7 @@ class AppGame extends FlameGame with HasCollisionDetection {
         routes: {
           'menu_loading': Route(MenuLoadingPage.new),
           'menu': Route(MenuPage.new),
+          'settings': SettingsRoute(),
           'game': Route(GamePage.new, maintainState: false),
           'game_over': GameOverRoute(),
         },
