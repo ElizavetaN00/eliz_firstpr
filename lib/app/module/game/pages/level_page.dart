@@ -11,13 +11,13 @@ import '../components/hextile/color_crystal.dart';
 import '../components/hextile/hextile_component.dart';
 import '../components/player/player.dart';
 import '../components/logical_size_component.dart';
-import 'dart:math' as math;
 
 import '../components/sprite_with_tap.dart';
 import '../game.dart';
 
 class GamePage extends PositionComponent with TapCallbacks {
   late final PlayerComponent player;
+  late final HexGridComponent hexGridComponent;
   AppGame get game => findGame()! as AppGame;
 
   @override
@@ -35,7 +35,21 @@ class GamePage extends PositionComponent with TapCallbacks {
       ),
     );
 
+    final levelText = TextComponent(
+      text: 'Level 1',
+      position: LogicalSize.logicalSize(1800, 40),
+      anchor: Anchor.topLeft,
+      textRenderer: TextPaint(
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 30,
+        ),
+      ),
+    );
+
     size = game.canvasSize;
+
+    hexGridComponent = HexGridComponent(game.canvasSize);
 
     addAll([
       SpriteComponent(
@@ -67,7 +81,8 @@ class GamePage extends PositionComponent with TapCallbacks {
           game.router.pushNamed('game');
         },
       ),
-      HexGridComponent(game.canvasSize),
+      hexGridComponent,
+      levelText,
       currentCrystalComponent
     ]);
   }
@@ -82,18 +97,21 @@ class GamePage extends PositionComponent with TapCallbacks {
     removeWhere((element) => element is CrystallForTile);
     if (AppStorage.soundEnabled.val) FlameAudio.play('remove4gems.wav');
     game.nextColor();
+    currentCrystalComponent.removeFromParent();
     add(currentCrystalComponent);
   }
 
   @override
-  void update(double dt) {}
+  void onMount() {
+    Future.delayed(Duration.zero, () {
+      hexGridComponent.addRandomCrystals();
+    });
 
-  onCollision() {
-    AppStorage.bestMiles.val =
-        math.max(AppStorage.bestMiles.val, player.timer.round());
-    AppStorage.lastScore.val = player.timer.round();
-    game.router.pushNamed('game_over');
+    super.onMount();
   }
+
+  @override
+  void update(double dt) {}
 }
 
 class CrystallForTile extends SpriteComponent
@@ -131,24 +149,32 @@ class CrystallForTile extends SpriteComponent
 
   @override
   void onDragEnd(DragEndEvent event) {
-    if (isColliding) {
-      canBeSetted = true;
-      collisionCallback?.call();
-    } else {
-      position = startPosition;
-    }
+    print('onDragEnd');
+    handleDragEnd();
     super.onDragEnd(event);
   }
 
+  void handleDragEnd() {
+    if (isColliding) {
+      canBeSetted = true;
+      Future.delayed(Duration.zero, () {});
+
+      // collisionCallback?.call();
+    } else {
+      position = startPosition;
+    }
+  }
+
   @override
-  void onCollisionEnd(PositionComponent other) {
+  void onCollision(Set<Vector2> position, PositionComponent other) {
+    print('onCollisionEnd');
     if (canBeSetted) {
       if (other is HexTile) {
-        other.setColor(this);
-        removeFromParent();
+        other.setColor(colorCrystal.currentColor);
+        // removeFromParent();
       }
     }
 
-    super.onCollisionEnd(other);
+    super.onCollision(position, other);
   }
 }

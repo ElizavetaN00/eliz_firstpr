@@ -1,17 +1,18 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:color_puzzle/app/module/game/pages/level_page.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 
 import '../../game.dart';
-import '../../pages/level_page.dart';
 import 'color_crystal.dart';
 
 class HexTile extends PositionComponent
-    with HasGameRef<AppGame>, CollisionCallbacks {
+    with HasGameRef<AppGame>, CollisionCallbacks, TapCallbacks {
   final Function() onUpdateTile;
   bool isTileRemoved = false;
 
@@ -27,14 +28,18 @@ class HexTile extends PositionComponent
     Vector2 position,
     this.onUpdateTile,
     this.tileRadius,
+    Color color,
   ) : super(
             position: position,
             size: Vector2.all(tileRadius * 1.8),
-            anchor: Anchor.topLeft);
+            anchor: Anchor.topLeft) {
+    // setColor(color);
+  }
   var hexBackground = HexBackground(
     radius: 1,
     position: Vector2.zero(),
   );
+
   @override
   FutureOr<void> onLoad() {
     debugMode = true;
@@ -73,17 +78,23 @@ class HexTile extends PositionComponent
     }
   }
 
-  void setColor(CrystallForTile other) {
+  void setColor(Color color) {
     if (isTileRemoved) {
       print('Tile is removed, cannot set color');
       return;
     }
-
-    var color = other.colorCrystal.currentColor;
+    if (color == colorCrystal.currentColor) {
+      print('Color is already set');
+      return;
+    }
     print('Setting color from other crystal: $color');
     setCrystal(color);
+
+    print(parent);
+    print(parent!.parent);
+
+    (parent!.parent as GamePage).onSetTile();
     onUpdateTile.call();
-    game.nextColor();
   }
 
   void deleteTile() {
@@ -104,6 +115,12 @@ class HexTile extends PositionComponent
 
     colorCrystal.currentColor = Colors.transparent;
     print('Tile deleted successfully');
+  }
+
+  @override
+  void onTapDown(TapDownEvent event) {
+    setColor(game.currentColor);
+    super.onTapDown(event);
   }
 }
 

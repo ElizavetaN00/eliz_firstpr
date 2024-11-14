@@ -1,3 +1,6 @@
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:color_puzzle/app/module/game/routes/settings_route.dart';
 import 'package:color_puzzle/app/module/game/routes/tutorial_route.dart';
 import 'package:flame/flame.dart';
@@ -16,7 +19,48 @@ class AppGame extends FlameGame with HasCollisionDetection {
   late final RouterComponent router;
 
   m.Color get currentColor => holeColorList.last;
-  List<m.Color> holeColorList = ColorCrystal.baseColors;
+  late final List<m.Color> holeColorList;
+
+  List<Color> generateHoleList() {
+    final random = Random();
+
+    final blueColors = List<Color>.generate(5, (index) {
+      return ColorCrystal.baseColors[0];
+    });
+
+    final redColors = List<Color>.generate(5, (index) {
+      return ColorCrystal.baseColors[1];
+    });
+
+    final yellowColors = List<Color>.generate(5, (index) {
+      return ColorCrystal.baseColors[2];
+    });
+
+    final list = blueColors + redColors + yellowColors;
+
+    // Функция для проверки условия
+    bool isValidShuffle(List<Color> arr) {
+      int count = 1;
+      for (int i = 1; i < arr.length; i++) {
+        if (arr[i] == arr[i - 1]) {
+          count++;
+          if (count > 3) {
+            return false; // Проверка на 4 одинаковых подряд
+          }
+        } else {
+          count = 1;
+        }
+      }
+      return true;
+    }
+
+    // Перемешиваем, пока не будет удовлетворено условие
+    do {
+      list.shuffle(random);
+    } while (!isValidShuffle(list));
+
+    return list;
+  }
 
   nextColor() {
     holeColorList.insert(0, holeColorList.last);
@@ -31,6 +75,7 @@ class AppGame extends FlameGame with HasCollisionDetection {
 
   @override
   Future<void> onLoad() async {
+    holeColorList = generateHoleList();
     for (final image in AppResources.flameImages) {
       await Flame.images.load(image);
     }

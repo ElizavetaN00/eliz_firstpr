@@ -1,8 +1,11 @@
 import 'dart:collection';
 import 'dart:math';
+import 'package:color_puzzle/app/extensions/random_elements_from_list.dart';
 import 'package:color_puzzle/app/module/game/components/logical_size_component.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import '../../pages/level_page.dart';
+import '../hextile/color_crystal.dart';
 import '../hextile/hextile_component.dart';
 
 class HexGridComponent extends PositionComponent {
@@ -22,10 +25,11 @@ class HexGridComponent extends PositionComponent {
     // Define grid width and height
     final gridWidth = rowStructure.reduce(max) * horizontalSpacing;
     final gridHeight = rowStructure.length * verticalSpacing;
+    final double leftOffset = LogicalSize.logicalWidth(70);
 
     // Center the grid on the screen
     position = Vector2(
-      (screenSize.x - gridWidth) / 2,
+      (screenSize.x - gridWidth) / 2 - leftOffset,
       (screenSize.y - gridHeight) / 2,
     );
 
@@ -46,7 +50,7 @@ class HexGridComponent extends PositionComponent {
         );
 
         final hexTile = HexTile(tilePosition,
-            () => findAndRemoveMatchingTiles(row, col), tileRadius);
+            () => findAndRemoveMatchingTiles(row, col), tileRadius, Colors.red);
         rowTiles.add(hexTile);
         add(hexTile);
       }
@@ -127,13 +131,57 @@ class HexGridComponent extends PositionComponent {
   }
 
   List<List<int>> getNeighbors(int row, int col) {
-    // Different neighbor patterns for even and odd rows
+    if (row == 0) {
+      return [
+        [0, -1], // left
+        [0, 1], // right
+        [1, 0], // bottom left
+        [1, 1], // bottom right
+      ];
+    } else if (row == 1) {
+      return [
+        [-1, -1],
+        [-1, 0],
+        [0, -1], // left
+        [0, 1], // right
+        [1, 0], // bottom left
+        [1, 1], // bottom right
+      ];
+    } else if (row == 2) {
+      return [
+        [-1, -1],
+        [-1, 0],
+        [0, -1], // left
+        [0, 1], // right
+        [1, -1], // bottom left
+        [1, 0], // bottom right
+      ];
+    } else if (row == 3) {
+      return [
+        [-1, 0],
+        [-1, 1],
+        [0, -1], // left
+        [0, 1], // right
+        [1, -1], // bottom left
+        [1, 0], // bottom right
+      ];
+    } else if (row == 4) {
+      return [
+        [-1, 0],
+        [-1, 1],
+        [0, 1], // right
+      ];
+    }
+
     if (row % 2 == 0) {
       return [
         [-1, -1], // top left
         [-1, 0], // top right
+        [-1, 1], // top right
         [0, -1], // left
         [0, 1], // right
+        [1, 1], // top right
+
         [1, -1], // bottom left
         [1, 0] // bottom right
       ];
@@ -141,11 +189,23 @@ class HexGridComponent extends PositionComponent {
       return [
         [-1, 0], // top left
         [-1, 1], // top right
+        [-1, -1],
         [0, -1], // left
         [0, 1], // right
         [1, 0], // bottom left
-        [1, 1] // bottom right
+        [1, 1],
+        [1, -1] // bottom right
       ];
+    }
+  }
+
+  addRandomCrystals() {
+    final randomHexTiles =
+        hexTiles.expand((e) => e).toList().getRandomElements(3);
+    int i = 0;
+    for (final hexTile in randomHexTiles) {
+      hexTile.setColor(ColorCrystal.secondaryColors[i]);
+      i++;
     }
   }
 }
