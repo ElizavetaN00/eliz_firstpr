@@ -44,7 +44,6 @@ class HexTile extends PositionComponent
 
   @override
   FutureOr<void> onLoad() {
-    debugMode = true;
     anchor = Anchor.topLeft;
     add(RectangleHitbox(size: size * 0.8, isSolid: true, position: size * 0.1));
     hexBackground = HexBackground(

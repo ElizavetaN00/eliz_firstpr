@@ -168,7 +168,6 @@ class CrystallForTile extends SpriteComponent
     sprite = Sprite(Flame.images
         .fromCache(colorCrystal.getFirstColor(colorCrystal.currentColor)));
     startPosition = position;
-    debugMode = true;
     add(
       RectangleHitbox(
           size: Vector2.all(1), anchor: Anchor.center, position: size / 2),
