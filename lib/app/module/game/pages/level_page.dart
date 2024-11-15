@@ -89,7 +89,7 @@ class GamePage extends PositionComponent with TapCallbacks {
         },
       ),
       hexGridComponent,
-      // currentCrystalComponent,
+      currentCrystalComponent,
       crystalsVertical,
     ]);
   }
@@ -97,13 +97,13 @@ class GamePage extends PositionComponent with TapCallbacks {
   CrystallForTile get currentCrystalComponent => CrystallForTile(
         position: Vector2(game.canvasSize.x - 100, 100),
         colorCrystal: ColorCrystal(currentColor: game.currentColor),
-        collisionCallback: onSetTile,
       );
 
   onSetTile() {
     removeWhere((element) => element is CrystallForTile);
     if (AppStorage.soundEnabled.val) FlameAudio.play('remove4gems.wav');
     game.nextColor();
+
     currentCrystalComponent.removeFromParent();
     add(currentCrystalComponent);
   }
@@ -149,14 +149,14 @@ class CrystallForTile extends SpriteComponent
   bool canBeSetted = false;
   final Function()? collisionCallback;
   final ColorCrystal colorCrystal;
+
   @override
   void onDragUpdate(DragUpdateEvent event) {
-    position = position + event.delta;
+    position = position + event.canvasDelta;
   }
 
   @override
   void onDragEnd(DragEndEvent event) {
-    print('onDragEnd');
     handleDragEnd();
     super.onDragEnd(event);
   }
@@ -164,9 +164,6 @@ class CrystallForTile extends SpriteComponent
   void handleDragEnd() {
     if (isColliding) {
       canBeSetted = true;
-      Future.delayed(Duration.zero, () {});
-
-      // collisionCallback?.call();
     } else {
       position = startPosition;
     }
@@ -174,11 +171,17 @@ class CrystallForTile extends SpriteComponent
 
   @override
   void onCollision(Set<Vector2> position, PositionComponent other) {
-    print('onCollisionEnd');
     if (canBeSetted) {
       if (other is HexTile) {
+        if (other.isTileRemoved ||
+            other.colorCrystal.currentColor == Colors.brown) {
+          canBeSetted = false;
+
+          this.position = startPosition;
+
+          return;
+        }
         other.setColor(colorCrystal.currentColor);
-        // removeFromParent();
       }
     }
 

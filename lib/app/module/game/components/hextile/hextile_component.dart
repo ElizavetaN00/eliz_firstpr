@@ -80,23 +80,23 @@ class HexTile extends PositionComponent
     }
   }
 
-  void setColor(Color color) {
+  void setColor(Color color, {withRefreshGrid = true}) {
     if (isTileRemoved) {
       print('Tile is removed, cannot set color');
       return;
     }
+
     if (colorCrystal.currentColor == Colors.brown) {
       print('Color is brown ');
       return;
     }
-    print('Setting color from other crystal: $color');
+
     setCrystal(color);
 
-    print(parent);
-    print(parent!.parent);
-
-    (parent!.parent as GamePage).onSetTile();
-    onUpdateTile.call();
+    if (withRefreshGrid) {
+      (parent!.parent as GamePage).onSetTile();
+      onUpdateTile.call();
+    }
   }
 
   void deleteTile() {

@@ -182,7 +182,7 @@ class HexGridComponent extends PositionComponent {
         hexTiles.expand((e) => e).toList().getRandomElements(3);
     int i = 0;
     for (final hexTile in randomHexTiles) {
-      hexTile.setColor(ColorCrystal.secondaryColors[i]);
+      hexTile.setColor(ColorCrystal.secondaryColors[i], withRefreshGrid: false);
       i++;
     }
   }
