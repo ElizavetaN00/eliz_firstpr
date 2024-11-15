@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: '7 gems',
       routes: {'/': (_) => const InitView()},
       initialRoute: '/',
     );
