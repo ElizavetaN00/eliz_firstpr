@@ -21,7 +21,7 @@ class MenuLoadingPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
       ),
       SpriteComponent(
         anchor: Anchor.center,
-        size: logicalSize(522, 865),
+        size: logicalSize(600, 865),
         position: LogicalSize.logicalPositionCenter(),
         sprite: Sprite(
           imageLogo,
