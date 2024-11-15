@@ -21,8 +21,8 @@ class ColorCrystal {
       Colors.red: Colors.red,
       Colors.blue: Colors.purple,
       Colors.yellow: Colors.orange,
-      Colors.purple: Colors.brown,
-      Colors.orange: Colors.brown,
+      Colors.purple: Colors.red, // Изменено
+      Colors.orange: Colors.red, // Изменено
       Colors.green: Colors.brown,
       Colors.brown: Colors.brown,
     },
@@ -30,9 +30,9 @@ class ColorCrystal {
       Colors.red: Colors.purple,
       Colors.blue: Colors.blue,
       Colors.yellow: Colors.green,
-      Colors.purple: Colors.brown,
+      Colors.purple: Colors.blue, // Изменено
       Colors.orange: Colors.brown,
-      Colors.green: Colors.brown,
+      Colors.green: Colors.blue, // Изменено
       Colors.brown: Colors.brown,
     },
     Colors.yellow: {
@@ -40,13 +40,13 @@ class ColorCrystal {
       Colors.blue: Colors.green,
       Colors.yellow: Colors.yellow,
       Colors.purple: Colors.brown,
-      Colors.orange: Colors.brown,
-      Colors.green: Colors.brown,
+      Colors.orange: Colors.yellow, // Изменено
+      Colors.green: Colors.yellow, // Изменено
       Colors.brown: Colors.brown,
     },
     Colors.purple: {
-      Colors.red: Colors.brown,
-      Colors.blue: Colors.brown,
+      Colors.red: Colors.red, // Изменено
+      Colors.blue: Colors.blue, // Изменено
       Colors.yellow: Colors.brown,
       Colors.purple: Colors.purple,
       Colors.orange: Colors.brown,
@@ -54,9 +54,9 @@ class ColorCrystal {
       Colors.brown: Colors.brown,
     },
     Colors.orange: {
-      Colors.red: Colors.brown,
+      Colors.red: Colors.red, // Изменено
       Colors.blue: Colors.brown,
-      Colors.yellow: Colors.brown,
+      Colors.yellow: Colors.yellow, // Изменено
       Colors.purple: Colors.brown,
       Colors.orange: Colors.orange,
       Colors.green: Colors.brown,
@@ -64,8 +64,8 @@ class ColorCrystal {
     },
     Colors.green: {
       Colors.red: Colors.brown,
-      Colors.blue: Colors.brown,
-      Colors.yellow: Colors.brown,
+      Colors.blue: Colors.blue, // Изменено
+      Colors.yellow: Colors.yellow, // Изменено
       Colors.purple: Colors.brown,
       Colors.orange: Colors.brown,
       Colors.green: Colors.green,
