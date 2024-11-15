@@ -80,9 +80,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: BungeeSpice
+    - family: BungeeShade
       fonts:
-        - asset: assets/fonts/BungeeSpice-Regular.ttf
+        - asset: assets/fonts/BungeeShade-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

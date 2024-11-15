@@ -15,6 +15,8 @@ import 'utils/generate_hole_list.dart';
 class AppGame extends FlameGame with HasCollisionDetection {
   late final RouterComponent router;
 
+  int score = 1000;
+
   m.Color get currentColor => holeColorList.last;
   late final List<m.Color> holeColorList;
 

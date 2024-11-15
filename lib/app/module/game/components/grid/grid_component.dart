@@ -3,11 +3,14 @@ import 'dart:math';
 import 'package:color_puzzle/app/extensions/random_elements_from_list.dart';
 import 'package:color_puzzle/app/module/game/components/logical_size_component.dart';
 import 'package:flame/components.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import '../../game.dart';
+import '../../pages/level_page.dart';
 import '../hextile/color_crystal.dart';
 import '../hextile/hextile_component.dart';
 
-class HexGridComponent extends PositionComponent {
+class HexGridComponent extends PositionComponent with HasGameRef<AppGame> {
   final List<int> rowStructure = [5, 6, 6, 6, 5];
   static double tileRadius = LogicalSize.logicalHight(120);
   static final double innerDiameter = tileRadius * sqrt(3);
@@ -251,7 +254,7 @@ class HexGridComponent extends PositionComponent {
   }
 
   void onGameOver() {
-    // Реализуйте логику завершения игры (например, переход на экран завершения)
-    print("Game Over triggered!");
+    // to game_over_page
+    (parent as GamePage).gameOver();
   }
 }

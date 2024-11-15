@@ -21,12 +21,15 @@ class GamePage extends PositionComponent with TapCallbacks {
   late final HexGridComponent hexGridComponent;
   AppGame get game => findGame()! as AppGame;
 
+  int score = 1000;
+
   @override
   Future<void> onLoad() async {
     final imageBg = Flame.images.fromCache('Background-Secondary.png');
     final settingImage = Flame.images.fromCache('Btn-Setting.png');
     final restartImage = Flame.images.fromCache('Btn-Restart.png');
     final frame = Flame.images.fromCache('Sidebar (2).png');
+    game.score = score;
     final frameSprite = SpriteComponent(
       size: LogicalSize.logicalSize(430, 1040),
       position: LogicalSize.logicalSize(1710, 20),
@@ -99,13 +102,31 @@ class GamePage extends PositionComponent with TapCallbacks {
         colorCrystal: ColorCrystal(currentColor: game.currentColor),
       );
 
+  gameOver() {
+    var allHexRemoved = false;
+    for (var row in hexGridComponent.hexTiles) {
+      for (var hexTile in row) {
+        if (!hexTile.isTileRemoved) {
+          allHexRemoved = false;
+          break;
+        }
+        allHexRemoved = true;
+      }
+    }
+    if (allHexRemoved) {
+      changeScore(2000);
+    }
+    game.score = score;
+    game.router.pushNamed('game_over');
+  }
+
   onSetTile() {
     removeWhere((element) => element is CrystallForTile);
     if (AppStorage.soundEnabled.val) FlameAudio.play('remove4gems.wav');
     game.nextColor();
-
     currentCrystalComponent.removeFromParent();
     add(currentCrystalComponent);
+    changeScore(-5);
   }
 
   @override
@@ -115,6 +136,15 @@ class GamePage extends PositionComponent with TapCallbacks {
     });
 
     super.onMount();
+  }
+
+  void changeScore(int value) {
+    final newScore = score + value;
+    if (newScore < 30) {
+      score = 30;
+    } else {
+      score = newScore;
+    }
   }
 
   @override
