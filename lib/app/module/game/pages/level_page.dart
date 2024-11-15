@@ -1,3 +1,4 @@
+import 'package:color_puzzle/app/module/game/components/horizontal_component.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -35,16 +36,22 @@ class GamePage extends PositionComponent with TapCallbacks {
       ),
     );
 
-    final levelText = TextComponent(
-      text: 'Level 1',
-      position: LogicalSize.logicalSize(1800, 40),
-      anchor: Anchor.topLeft,
-      textRenderer: TextPaint(
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 30,
-        ),
-      ),
+    final currentCrystals = game.holeColorList.getRange(1, 5).toList();
+    final List<CrystallInQue> crystalsQueueComponent = [];
+
+    for (var i = 0; i < currentCrystals.length; i++) {
+      final crystal = currentCrystals[i];
+      final crystalComponent = CrystallInQue(
+        position: Vector2(0, 200 + i * 100),
+        colorCrystal: ColorCrystal(currentColor: crystal),
+      );
+      crystalsQueueComponent.add(crystalComponent);
+    }
+
+    final crystalsVertical = VerticalComponents(
+      position: LogicalSize.logicalSize(1930, 500),
+      0,
+      list: crystalsQueueComponent,
     );
 
     size = game.canvasSize;
@@ -82,8 +89,8 @@ class GamePage extends PositionComponent with TapCallbacks {
         },
       ),
       hexGridComponent,
-      levelText,
-      currentCrystalComponent
+      // currentCrystalComponent,
+      crystalsVertical,
     ]);
   }
 
@@ -124,8 +131,8 @@ class CrystallForTile extends SpriteComponent
   }) : super(
           position: position,
           size: LogicalSize.logicalSize(
-            100,
-            100,
+            240,
+            240,
           ),
         ) {
     sprite = Sprite(Flame.images
@@ -177,4 +184,22 @@ class CrystallForTile extends SpriteComponent
 
     super.onCollision(position, other);
   }
+}
+
+class CrystallInQue extends SpriteComponent {
+  CrystallInQue({
+    required Vector2 position,
+    required this.colorCrystal,
+    super.anchor = Anchor.center,
+  }) : super(
+          position: position,
+          size: LogicalSize.logicalSize(
+            120,
+            120,
+          ),
+        ) {
+    sprite = Sprite(Flame.images
+        .fromCache(colorCrystal.getFirstColor(colorCrystal.currentColor)));
+  }
+  final ColorCrystal colorCrystal;
 }
