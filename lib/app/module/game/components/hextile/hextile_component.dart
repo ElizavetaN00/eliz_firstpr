@@ -18,7 +18,9 @@ class HexTile extends PositionComponent
 
   // Modified getter to also check if crystal sprite exists
   bool get readyForCompare =>
-      colorCrystal.currentColor != Colors.transparent && crystalSprite != null;
+      (colorCrystal.currentColor != Colors.transparent &&
+          crystalSprite != null &&
+          colorCrystal.currentColor != Colors.brown);
 
   ColorCrystal colorCrystal = ColorCrystal();
   SpriteComponent? crystalSprite;
@@ -83,8 +85,8 @@ class HexTile extends PositionComponent
       print('Tile is removed, cannot set color');
       return;
     }
-    if (color == colorCrystal.currentColor) {
-      print('Color is already set');
+    if (colorCrystal.currentColor == Colors.brown) {
+      print('Color is brown ');
       return;
     }
     print('Setting color from other crystal: $color');

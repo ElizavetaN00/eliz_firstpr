@@ -4,7 +4,6 @@ import 'package:color_puzzle/app/extensions/random_elements_from_list.dart';
 import 'package:color_puzzle/app/module/game/components/logical_size_component.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import '../../pages/level_page.dart';
 import '../hextile/color_crystal.dart';
 import '../hextile/hextile_component.dart';
 
@@ -97,7 +96,8 @@ class HexGridComponent extends PositionComponent {
       // Skip if tile is removed or color doesn't match
       if (tile.isTileRemoved ||
           tile.colorCrystal.currentColor != colorToMatch ||
-          tile.colorCrystal.currentColor == Colors.transparent) {
+          tile.colorCrystal.currentColor == Colors.transparent ||
+          tile.colorCrystal.currentColor == Colors.brown) {
         return;
       }
 
@@ -128,6 +128,7 @@ class HexGridComponent extends PositionComponent {
         tile.deleteTile();
       }
     }
+    checkGameOver();
   }
 
   List<List<int>> getNeighbors(int row, int col) {
@@ -165,36 +166,13 @@ class HexGridComponent extends PositionComponent {
         [1, -1], // bottom left
         [1, 0], // bottom right
       ];
-    } else if (row == 4) {
-      return [
-        [-1, 0],
-        [-1, 1],
-        [0, 1], // right
-      ];
-    }
-
-    if (row % 2 == 0) {
-      return [
-        [-1, -1], // top left
-        [-1, 0], // top right
-        [-1, 1], // top right
-        [0, -1], // left
-        [0, 1], // right
-        [1, 1], // top right
-
-        [1, -1], // bottom left
-        [1, 0] // bottom right
-      ];
     } else {
       return [
-        [-1, 0], // top left
-        [-1, 1], // top right
-        [-1, -1],
-        [0, -1], // left
-        [0, 1], // right
-        [1, 0], // bottom left
-        [1, 1],
-        [1, -1] // bottom right
+        [-1, 1],
+        [-1, 0],
+        [-1, 1],
+        [0, 1],
+        [0, -1]
       ];
     }
   }
@@ -207,5 +185,73 @@ class HexGridComponent extends PositionComponent {
       hexTile.setColor(ColorCrystal.secondaryColors[i]);
       i++;
     }
+  }
+
+  void checkGameOver() {
+    // Проверяем, все ли ячейки удалены или являются пустыми (Color.brown)
+    bool allTilesRemovedOrEmpty = hexTiles.every(
+      (row) => row.every(
+        (tile) =>
+            tile.isTileRemoved ||
+            tile.colorCrystal.currentColor == Colors.brown,
+      ),
+    );
+
+    if (allTilesRemovedOrEmpty) {
+      print("All tiles removed or empty. Game Over!");
+      onGameOver(); // Метод для обработки завершения игры
+      return;
+    }
+
+    // Проверяем, есть ли хотя бы одна группа из 4 соседних ячеек
+    bool hasAvailableMoves = false;
+
+    for (int row = 0; row < hexTiles.length; row++) {
+      for (int col = 0; col < hexTiles[row].length; col++) {
+        final HexTile currentTile = hexTiles[row][col];
+        if (currentTile.isTileRemoved ||
+            currentTile.colorCrystal.currentColor == Colors.brown) {
+          continue; // Пропускаем пустые ячейки
+        }
+
+        final List<List<int>> neighbors = getNeighbors(row, col);
+
+        int neighborCount = 0;
+
+        for (final List<int> neighbor in neighbors) {
+          final int neighborRow = row + neighbor[0];
+          final int neighborCol = col + neighbor[1];
+
+          if (neighborRow >= 0 &&
+              neighborRow < hexTiles.length &&
+              neighborCol >= 0 &&
+              neighborCol < hexTiles[neighborRow].length) {
+            final HexTile neighborTile = hexTiles[neighborRow][neighborCol];
+
+            if (!neighborTile.isTileRemoved &&
+                neighborTile.colorCrystal.currentColor != Colors.brown) {
+              neighborCount++;
+              if (neighborCount >= 3) {
+                // +1 текущая ячейка
+                hasAvailableMoves = true;
+                break;
+              }
+            }
+          }
+        }
+        if (hasAvailableMoves) break;
+      }
+      if (hasAvailableMoves) break;
+    }
+
+    if (!hasAvailableMoves) {
+      print("No more groups of 4 available. Game Over!");
+      onGameOver(); // Метод для обработки завершения игры
+    }
+  }
+
+  void onGameOver() {
+    // Реализуйте логику завершения игры (например, переход на экран завершения)
+    print("Game Over triggered!");
   }
 }

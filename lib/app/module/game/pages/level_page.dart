@@ -78,7 +78,7 @@ class GamePage extends PositionComponent with TapCallbacks {
           restartImage,
         ),
         onTap: () {
-          game.router.pushNamed('game');
+          game.newGame();
         },
       ),
       hexGridComponent,

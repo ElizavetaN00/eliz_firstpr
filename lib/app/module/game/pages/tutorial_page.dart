@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:color_puzzle/app/module/game/components/background_component.dart';
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 
 import '../components/logical_size_component.dart';

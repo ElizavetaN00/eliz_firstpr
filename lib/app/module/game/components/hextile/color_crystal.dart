@@ -6,14 +6,97 @@ class ColorCrystal {
 
   // Карта для связи цвета с соответствующим спрайтом
   static final Map<Color, String> colorToSprite = {
-    Colors.blue: 'Crystal - Blue.png',
-    Colors.brown: 'Crystal - Brown 1.png',
-    Colors.green: 'Crystal - Green.png',
     Colors.red: 'Crystal - Red.png',
-    Colors.purple: 'Crystal - Violet.png',
+    Colors.blue: 'Crystal - Blue.png',
     Colors.yellow: 'Crystal - Yellow.png',
+    Colors.purple: 'Crystal - Violet.png',
     Colors.orange: 'Crystal -Orange.png',
+    Colors.green: 'Crystal - Green.png',
+    Colors.brown: 'Crystal - Brown 1.png',
   };
+
+  // Таблица смешивания цветов
+  static final Map<Color, Map<Color, Color>> colorMixTable = {
+    Colors.red: {
+      Colors.red: Colors.red,
+      Colors.blue: Colors.purple,
+      Colors.yellow: Colors.orange,
+      Colors.purple: Colors.brown,
+      Colors.orange: Colors.brown,
+      Colors.green: Colors.brown,
+      Colors.brown: Colors.brown,
+    },
+    Colors.blue: {
+      Colors.red: Colors.purple,
+      Colors.blue: Colors.blue,
+      Colors.yellow: Colors.green,
+      Colors.purple: Colors.brown,
+      Colors.orange: Colors.brown,
+      Colors.green: Colors.brown,
+      Colors.brown: Colors.brown,
+    },
+    Colors.yellow: {
+      Colors.red: Colors.orange,
+      Colors.blue: Colors.green,
+      Colors.yellow: Colors.yellow,
+      Colors.purple: Colors.brown,
+      Colors.orange: Colors.brown,
+      Colors.green: Colors.brown,
+      Colors.brown: Colors.brown,
+    },
+    Colors.purple: {
+      Colors.red: Colors.brown,
+      Colors.blue: Colors.brown,
+      Colors.yellow: Colors.brown,
+      Colors.purple: Colors.purple,
+      Colors.orange: Colors.brown,
+      Colors.green: Colors.brown,
+      Colors.brown: Colors.brown,
+    },
+    Colors.orange: {
+      Colors.red: Colors.brown,
+      Colors.blue: Colors.brown,
+      Colors.yellow: Colors.brown,
+      Colors.purple: Colors.brown,
+      Colors.orange: Colors.orange,
+      Colors.green: Colors.brown,
+      Colors.brown: Colors.brown,
+    },
+    Colors.green: {
+      Colors.red: Colors.brown,
+      Colors.blue: Colors.brown,
+      Colors.yellow: Colors.brown,
+      Colors.purple: Colors.brown,
+      Colors.orange: Colors.brown,
+      Colors.green: Colors.green,
+      Colors.brown: Colors.brown,
+    },
+    Colors.brown: {
+      Colors.red: Colors.brown,
+      Colors.blue: Colors.brown,
+      Colors.yellow: Colors.brown,
+      Colors.purple: Colors.brown,
+      Colors.orange: Colors.brown,
+      Colors.green: Colors.brown,
+      Colors.brown: Colors.brown,
+    },
+  };
+
+  // Функция для смешивания цветов с использованием таблицы
+  Color mixColors(Color color1, Color color2) {
+    return colorMixTable[color1]?[color2] ?? Colors.brown;
+  }
+
+  // Функция для получения пути к спрайту
+  String? getSpritePath(Color newColor) {
+    currentColor = mixColors(currentColor, newColor);
+    return colorToSprite[currentColor];
+  }
+
+  // Дополнительная функция для получения спрайта по цвету
+  String getFirstColor(Color color) {
+    return colorToSprite[color]!;
+  }
 
   static final secondaryColors = [Colors.purple, Colors.orange, Colors.green];
 
@@ -22,64 +105,4 @@ class ColorCrystal {
     Colors.red,
     Colors.yellow
   ];
-
-  Color mixColors(Color color1, Color color2) {
-    // Mix Red and Blue to get Purple
-    if ((color1 == Colors.red && color2 == Colors.blue) ||
-        (color1 == Colors.blue && color2 == Colors.red)) {
-      return Colors.purple;
-    }
-    // Mix Red and Yellow to get Orange
-    else if ((color1 == Colors.red && color2 == Colors.yellow) ||
-        (color1 == Colors.yellow && color2 == Colors.red)) {
-      return Colors.orange;
-    }
-    // Mix Blue and Yellow to get Green
-    else if ((color1 == Colors.blue && color2 == Colors.yellow) ||
-        (color1 == Colors.yellow && color2 == Colors.blue)) {
-      return Colors.green;
-    }
-    // Mix Red and Brown to keep Brown
-    else if ((color1 == Colors.red && color2 == Colors.brown) ||
-        (color1 == Colors.brown && color2 == Colors.red)) {
-      return Colors.brown;
-    }
-    // Mix Blue and Brown to keep Brown
-    else if ((color1 == Colors.blue && color2 == Colors.brown) ||
-        (color1 == Colors.brown && color2 == Colors.blue)) {
-      return Colors.brown;
-    }
-    // Mix Yellow and Brown to keep Brown
-    else if ((color1 == Colors.yellow && color2 == Colors.brown) ||
-        (color1 == Colors.brown && color2 == Colors.yellow)) {
-      return Colors.brown;
-    }
-    // Mix Green and Brown to keep Brown
-    else if ((color1 == Colors.green && color2 == Colors.brown) ||
-        (color1 == Colors.brown && color2 == Colors.green)) {
-      return Colors.brown;
-    }
-    // Mix Orange and Brown to keep Brown
-    else if ((color1 == Colors.orange && color2 == Colors.brown) ||
-        (color1 == Colors.brown && color2 == Colors.orange)) {
-      return Colors.brown;
-    }
-    // Mix Purple and Brown to keep Brown
-    else if ((color1 == Colors.purple && color2 == Colors.brown) ||
-        (color1 == Colors.brown && color2 == Colors.purple)) {
-      return Colors.brown;
-    }
-    // Default return if no mixing rules apply
-    return color1;
-  }
-
-  // Функция для добавления нового цвета и применения смешивания
-  String? getSpritePath(Color newColor) {
-    currentColor = mixColors(currentColor, newColor);
-    return colorToSprite[currentColor];
-  }
-
-  String getFirstColor(Color color) {
-    return colorToSprite[color]!;
-  }
 }
