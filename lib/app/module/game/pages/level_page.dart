@@ -19,6 +19,8 @@ import '../game.dart';
 class GamePage extends PositionComponent with TapCallbacks {
   late final PlayerComponent player;
   late final HexGridComponent hexGridComponent;
+  late VerticalComponents crystalsQueue;
+
   AppGame get game => findGame()! as AppGame;
 
   int score = 1000;
@@ -39,10 +41,10 @@ class GamePage extends PositionComponent with TapCallbacks {
       ),
     );
 
-    final currentCrystals = game.holeColorList.getRange(1, 5).toList();
+    final currentCrystals = game.holeColorList.getRange(10, 15).toList();
     final List<CrystallInQue> crystalsQueueComponent = [];
 
-    for (var i = 0; i < currentCrystals.length; i++) {
+    for (var i = currentCrystals.length - 2; i >= 0; i--) {
       final crystal = currentCrystals[i];
       final crystalComponent = CrystallInQue(
         position: Vector2(0, 200 + i * 100),
@@ -51,8 +53,9 @@ class GamePage extends PositionComponent with TapCallbacks {
       crystalsQueueComponent.add(crystalComponent);
     }
 
-    final crystalsVertical = VerticalComponents(
-      position: LogicalSize.logicalSize(1930, 500),
+    crystalsQueue = VerticalComponents(
+      position: LogicalSize.logicalSize(1930, 540),
+      anchor: Anchor.topLeft,
       0,
       list: crystalsQueueComponent,
     );
@@ -60,6 +63,17 @@ class GamePage extends PositionComponent with TapCallbacks {
     size = game.canvasSize;
 
     hexGridComponent = HexGridComponent(game.canvasSize);
+
+    final nextSprite = SpriteComponent(
+      size: LogicalSize.logicalSize(90, 35),
+      anchor: Anchor.topLeft,
+      position: LogicalSize.logicalSize(1880, 419),
+      sprite: Sprite(
+        Flame.images.fromCache(
+          'Next.png',
+        ),
+      ),
+    );
 
     addAll([
       SpriteComponent(
@@ -93,12 +107,36 @@ class GamePage extends PositionComponent with TapCallbacks {
       ),
       hexGridComponent,
       currentCrystalComponent,
-      crystalsVertical,
+      crystalsQueue,
+      nextSprite
     ]);
   }
 
+  setQueueCrystals() {
+    final currentCrystals = game.holeColorList.getRange(10, 15).toList();
+    final List<CrystallInQue> crystalsQueueComponent = [];
+
+    for (var i = currentCrystals.length - 2; i >= 0; i--) {
+      final crystal = currentCrystals[i];
+      final crystalComponent = CrystallInQue(
+        position: Vector2(0, 200 + i * 100),
+        colorCrystal: ColorCrystal(currentColor: crystal),
+      );
+      crystalsQueueComponent.add(crystalComponent);
+    }
+
+    final crystalsVertical = VerticalComponents(
+      position: LogicalSize.logicalSize(1930, 540),
+      0,
+      list: crystalsQueueComponent,
+    );
+    remove(crystalsQueue);
+    crystalsQueue = crystalsVertical;
+    add(crystalsQueue);
+  }
+
   CrystallForTile get currentCrystalComponent => CrystallForTile(
-        position: Vector2(game.canvasSize.x - 100, 100),
+        position: Vector2(LogicalSize.logicalWidth(1920), 100),
         colorCrystal: ColorCrystal(currentColor: game.currentColor),
       );
 
@@ -127,6 +165,7 @@ class GamePage extends PositionComponent with TapCallbacks {
     currentCrystalComponent.removeFromParent();
     add(currentCrystalComponent);
     changeScore(-5);
+    setQueueCrystals();
   }
 
   @override
@@ -168,6 +207,7 @@ class CrystallForTile extends SpriteComponent
     sprite = Sprite(Flame.images
         .fromCache(colorCrystal.getFirstColor(colorCrystal.currentColor)));
     startPosition = position;
+    // debugMode = true;
     add(
       RectangleHitbox(
           size: Vector2.all(1), anchor: Anchor.center, position: size / 2),

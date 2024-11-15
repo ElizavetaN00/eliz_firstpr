@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:color_puzzle/app/module/game/components/background_component.dart';
 import 'package:color_puzzle/data/storage/storage.dart';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 import 'package:flame_audio/flame_audio.dart';
 
@@ -10,7 +11,7 @@ import '../components/logical_size_component.dart';
 import '../components/sprite_with_tap.dart';
 import '../game.dart';
 
-class SettingsPage extends LogicalSizeComponent<AppGame> {
+class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
   bool isMusicOn = AppStorage.musicEnabled.val;
   bool isSoundOn = AppStorage.soundEnabled.val;
 

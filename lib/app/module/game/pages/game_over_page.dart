@@ -2,7 +2,6 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
-import '../../../../data/storage/storage.dart';
 import '../components/logical_size_component.dart';
 import '../components/sprite_with_tap.dart';
 import '../game.dart';
