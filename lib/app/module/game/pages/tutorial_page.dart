@@ -1,12 +1,13 @@
 import 'dart:ui';
 
 import 'package:color_puzzle/app/module/game/components/background_component.dart';
+import 'package:color_puzzle/generated/assets_flame_images.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 
 import '../components/logical_size_component.dart';
-import '../components/sprite_with_tap.dart';
+import '../components/tapable_box.dart';
 import '../game.dart';
 
 class TutorialPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
@@ -15,24 +16,21 @@ class TutorialPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
   late final Image closeImage;
   @override
   Future<void> onLoad() async {
-    tutorialPopUp = Flame.images.fromCache('tutorial_big.png');
-    closeImage = Flame.images.fromCache('close-button.png');
+    tutorialPopUp = Flame.images.fromCache(AssetsFlameImages.Frame_9);
+    closeImage = Flame.images.fromCache(AssetsFlameImages.Group);
 
     popUpComponent = SpriteComponent(
-      anchor: Anchor.center,
-      size: logicalSize(1600, 1280),
-      position: logicalSize(960, 540),
+      anchor: Anchor.topCenter,
+      size: logicalSize(1000, 1050),
+      position: logicalSize(539, 500),
       sprite: Sprite(
         tutorialPopUp,
       ),
     );
-    final closeButton = SpriteWithTap(
+    final closeButton = TappableBox(
       anchor: Anchor.topRight,
-      size: logicalSize(52, 52),
-      position: logicalSize(1550, 150),
-      sprite: Sprite(
-        closeImage,
-      ),
+      size: logicalSize(100, 100),
+      position: logicalSize(950, 600),
       onTap: () {
         game.router.pop();
       },

@@ -14,7 +14,7 @@ class MenuPage extends LogicalSizeComponent<AppGame> {
     FlameAudio.bgm.initialize();
 
     await FlameAudio.bgm.stop();
-    // await FlameAudio.bgm.play('background.wav');
+    await FlameAudio.bgm.play('background.wav');
     if (!AppStorage.musicEnabled.val) {
       await FlameAudio.bgm.pause();
     }

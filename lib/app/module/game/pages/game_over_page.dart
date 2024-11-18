@@ -1,5 +1,6 @@
 import 'package:color_puzzle/generated/assets_flame_images.dart';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
@@ -7,7 +8,8 @@ import '../components/logical_size_component.dart';
 import '../components/sprite_with_tap.dart';
 import '../game.dart';
 
-class GameOverPage extends Component with HasGameReference<AppGame> {
+class GameOverPage extends Component
+    with HasGameReference<AppGame>, TapCallbacks {
   @override
   Future<void> onLoad() async {
     final gameOverPopUp = await game.images.load(AssetsFlameImages.Frame_8);

@@ -12,8 +12,7 @@ class TutorialRoute extends Route {
 
   @override
   void onPop(Route nextRoute) {
-    // nextRoute
-    //   ..resumeTime()
+    nextRoute..resumeTime();
     //   ..removeRenderEffect();
   }
 }

@@ -8,13 +8,12 @@ class SettingsRoute extends Route {
 
   @override
   void onPush(Route? previousRoute) {
-    // previousRoute!.stopTime();
+    previousRoute!.stopTime();
   }
 
   @override
   void onPop(Route nextRoute) {
-    // nextRoute
-    //   ..resumeTime()
+    nextRoute..resumeTime();
     //   ..removeRenderEffect();
   }
 }

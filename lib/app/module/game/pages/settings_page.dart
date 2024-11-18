@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:color_puzzle/app/module/game/components/background_component.dart';
 import 'package:color_puzzle/data/storage/storage.dart';
+import 'package:color_puzzle/generated/assets_flame_images.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
@@ -20,25 +21,25 @@ class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
   late final Image soundOn;
   late final Image soundOff;
   late final Image settingsPopUp;
-  late final Image tutotialImage;
+  late final Image tutorialImage;
   late final Image closeImage;
   late final SpriteWithTap musicButton;
   late final SpriteWithTap soundButton;
   late final SpriteComponent popUpComponent;
   @override
   Future<void> onLoad() async {
-    settingsPopUp = Flame.images.fromCache('Pop-up (1).png');
-    musicOn = Flame.images.fromCache('music_on.png');
-    musicOff = Flame.images.fromCache('music_off.png');
-    soundOn = Flame.images.fromCache('sound_on.png');
-    soundOff = Flame.images.fromCache('sound_off.png');
-    tutotialImage = Flame.images.fromCache('tutorial.png');
-    closeImage = Flame.images.fromCache('close-button.png');
+    settingsPopUp = Flame.images.fromCache(AssetsFlameImages.Frame_10);
+    musicOn = Flame.images.fromCache(AssetsFlameImages.Btn_1);
+    musicOff = Flame.images.fromCache(AssetsFlameImages.Btn_2);
+    soundOn = Flame.images.fromCache(AssetsFlameImages.Btn_4);
+    soundOff = Flame.images.fromCache(AssetsFlameImages.Btn_3);
+    tutorialImage = Flame.images.fromCache(AssetsFlameImages.Btn_5);
+    closeImage = Flame.images.fromCache(AssetsFlameImages.Group);
 
     musicButton = SpriteWithTap(
-      anchor: Anchor.topCenter,
-      size: logicalSize(840, 164),
-      position: logicalSize(960, 349),
+      anchor: Anchor.topLeft,
+      size: logicalSize(676, 203),
+      position: logicalSize(201, 855),
       sprite: Sprite(
         isMusicOn ? musicOn : musicOff,
       ),
@@ -54,9 +55,9 @@ class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
     );
 
     soundButton = SpriteWithTap(
-      anchor: Anchor.topCenter,
-      size: logicalSize(840, 164),
-      position: logicalSize(960, 553),
+      anchor: Anchor.topLeft,
+      size: logicalSize(676, 203),
+      position: logicalSize(201, 1078),
       sprite: Sprite(
         isSoundOn ? soundOn : soundOff,
       ),
@@ -67,11 +68,11 @@ class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
     );
 
     final tutorialButton = SpriteWithTap(
-      anchor: Anchor.topCenter,
-      size: logicalSize(840, 164),
-      position: logicalSize(960, 757),
+      anchor: Anchor.topLeft,
+      size: logicalSize(676, 203),
+      position: logicalSize(201, 1301),
       sprite: Sprite(
-        tutotialImage,
+        tutorialImage,
       ),
       onTap: () {
         game.router.pushReplacementNamed('tutorial');
@@ -80,8 +81,8 @@ class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
 
     final closeButton = SpriteWithTap(
       anchor: Anchor.topRight,
-      size: logicalSize(52, 52),
-      position: logicalSize(1390, 150),
+      size: logicalSize(100, 100),
+      position: logicalSize(910, 530),
       sprite: Sprite(
         closeImage,
       ),
@@ -91,9 +92,9 @@ class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
     );
 
     popUpComponent = SpriteComponent(
-      anchor: Anchor.center,
-      size: logicalSize(1400, 1300),
-      position: logicalSize(960, 540),
+      anchor: Anchor.topCenter,
+      size: logicalSize(1000, 1300),
+      position: logicalSize(539, 400),
       sprite: Sprite(
         settingsPopUp,
       ),

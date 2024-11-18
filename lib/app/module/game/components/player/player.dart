@@ -2,7 +2,9 @@ import 'package:color_puzzle/app/module/game/components/moving_component/coin.da
 import 'package:color_puzzle/app/module/game/components/moving_component/obstacle.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/foundation.dart';
+import '../../../../../data/storage/storage.dart';
 import '../../game.dart';
 import '../../pages/level_page.dart';
 import '../logical_size_component.dart';
@@ -112,11 +114,17 @@ class PlayerComponent extends SpriteAnimationComponent
     if (other is CoinComponent) {
       other.removeFromParent();
       (parent as GamePage).score += 20;
+      if (AppStorage.soundEnabled.val) {
+        FlameAudio.play('collect_coin.wav');
+      }
     }
 
     if (other is ObstacleComponent) {
       other.removeFromParent();
       (parent as GamePage).gameOver();
+      if (AppStorage.soundEnabled.val) {
+        FlameAudio.play('asteroid_collision.wav');
+      }
     }
     print('onCollisionStart');
     super.onCollisionStart(intersectionPoints, other);
