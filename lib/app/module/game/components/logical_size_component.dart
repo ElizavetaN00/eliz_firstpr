@@ -1,7 +1,8 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 
-class LogicalSizeComponent<T extends FlameGame> extends PositionComponent with HasGameReference<T> {
+class LogicalSizeComponent<T extends FlameGame> extends PositionComponent
+    with HasGameReference<T> {
   // get device orientation
   bool get isPortrait => game.canvasSize.x < game.canvasSize.y;
 
@@ -14,18 +15,24 @@ class LogicalSizeComponent<T extends FlameGame> extends PositionComponent with H
         game.canvasSize.x / (isPortrait ? 1080 : 2160) * height,
       );
 
-  double logicalHeight(int points) => game.canvasSize.y / (isPortrait ? 2160 : 1080) * points;
-  double logicalWidth(int points) => game.canvasSize.x / (isPortrait ? 1080 : 2160) * points;
+  double logicalHeight(int points) =>
+      game.canvasSize.y / (isPortrait ? 2160 : 1080) * points;
+  double logicalWidth(int points) =>
+      game.canvasSize.x / (isPortrait ? 1080 : 2160) * points;
 
   Vector2 logicalPositionCenter() => Vector2(
         game.canvasSize.x / 2,
         game.canvasSize.y / 2,
       );
+  double get logicalXCenter => (isPortrait ? 1080 : 2160) / 2;
+
+  double get logicalYCenter => (isPortrait ? 2160 : 1080) / 2;
 }
 
 class LogicalSize {
   static Vector2? _canvasSize;
-  static bool get isPortrait => ((_canvasSize?.x ?? 0) < (((_canvasSize?.y) ?? 0).toDouble()));
+  static bool get isPortrait =>
+      ((_canvasSize?.x ?? 0) < (((_canvasSize?.y) ?? 0).toDouble()));
 
   static setSize(Vector2 size) {
     _canvasSize = size;
@@ -49,6 +56,8 @@ class LogicalSize {
         _canvasSize!.x / (isPortrait ? 1080 : 2160) * height,
       );
 
-  static double logicalHight(int points) => _canvasSize!.y / (isPortrait ? 2160 : 1080) * points;
-  static double logicalWidth(int points) => _canvasSize!.x / (isPortrait ? 1080 : 2160) * points;
+  static double logicalHight(int points) =>
+      _canvasSize!.y / (isPortrait ? 2160 : 1080) * points;
+  static double logicalWidth(int points) =>
+      _canvasSize!.x / (isPortrait ? 1080 : 2160) * points;
 }

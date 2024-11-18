@@ -1,14 +1,20 @@
+import 'package:color_puzzle/app/module/game/components/moving_component/coin.dart';
+import 'package:color_puzzle/app/module/game/components/moving_component/obstacle.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flutter/foundation.dart';
 import '../../game.dart';
+import '../../pages/level_page.dart';
 import '../logical_size_component.dart';
 
-class PlayerComponent extends SpriteAnimationComponent with HasGameRef<AppGame>, CollisionCallbacks, KeyboardHandler {
+class PlayerComponent extends SpriteAnimationComponent
+    with HasGameRef<AppGame>, CollisionCallbacks, KeyboardHandler {
   double timer = 0;
-  double speed = 100; // Speed of the player movement in pixels per second
+  double speed = 300; // Speed of the player movement in pixels per second
 
   @override
   Future<void> onLoad() async {
+    debugMode = kDebugMode;
     final spritesNum = [
       1,
       2,
@@ -26,6 +32,7 @@ class PlayerComponent extends SpriteAnimationComponent with HasGameRef<AppGame>,
       LogicalSize.logicalWidth(380),
       gameRef.canvasSize.y - 24,
     );
+    add(RectangleHitbox(size: size));
   }
 
   @override
@@ -38,6 +45,9 @@ class PlayerComponent extends SpriteAnimationComponent with HasGameRef<AppGame>,
   PlayerDirectionSprite playerDirectionSprite = PlayerDirectionSprite.right;
   updateSpriteDirection() {
     if (movingDirection == MovingDirection.left) {
+      if (playerDirectionSprite == PlayerDirectionSprite.left) {
+        return;
+      }
       playerDirectionSprite = PlayerDirectionSprite.left;
       position.x += size.x;
       scale.x = -1; // Отражаем по горизонтали
@@ -53,11 +63,15 @@ class PlayerComponent extends SpriteAnimationComponent with HasGameRef<AppGame>,
 
   updateMoving(dt) {
     //prevent border collision
-    if (position.x < 0) {
-      position.x = 0;
-    }
-    if (position.x > gameRef.canvasSize.x - size.x) {
-      position.x = gameRef.canvasSize.x - size.x;
+
+    if (movingDirection == MovingDirection.right) {
+      if (position.x > gameRef.canvasSize.x - size.x) {
+        position.x = gameRef.canvasSize.x - size.x;
+      }
+    } else {
+      if (position.x < 0 + size.x) {
+        position.x = 0 + size.x;
+      }
     }
 
     switch (movingDirection) {
@@ -90,6 +104,22 @@ class PlayerComponent extends SpriteAnimationComponent with HasGameRef<AppGame>,
     }
     movingDirection = MovingDirection.left;
     updateSpriteDirection();
+  }
+
+  @override
+  void onCollisionStart(
+      Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (other is CoinComponent) {
+      other.removeFromParent();
+      (parent as GamePage).score += 20;
+    }
+
+    if (other is ObstacleComponent) {
+      other.removeFromParent();
+      (parent as GamePage).gameOver();
+    }
+    print('onCollisionStart');
+    super.onCollisionStart(intersectionPoints, other);
   }
 }
 

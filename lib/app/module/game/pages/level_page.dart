@@ -3,6 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart' as m;
+import 'package:flutter/material.dart';
 
 import '../components/moving_background/moving_background.dart';
 import '../components/player/player.dart';
@@ -12,17 +13,25 @@ import '../components/sprite_with_tap.dart';
 import '../game.dart';
 import '../utils/asteroid_coins_spawn.dart';
 
-class GamePage extends LogicalSizeComponent<AppGame> with TapCallbacks, AsteroidCoinsSpawn {
+class GamePage extends LogicalSizeComponent<AppGame>
+    with TapCallbacks, AsteroidCoinsSpawn {
   @override
   AppGame get game => findGame()! as AppGame;
 
   int score = 0;
   late MovingBackground bg;
-  late Timer spawnTimer;
   late final PlayerComponent player;
-
+  var scoreComponent = TextComponent(
+    text: 0.toString(),
+    anchor: Anchor.center,
+    textRenderer: TextPaint(
+      style: const TextStyle(
+          fontSize: 70, color: Colors.white, fontWeight: FontWeight.w700),
+    ),
+  );
   @override
   Future<void> onLoad() async {
+    scoreComponent.position = Vector2(game.size.x / 2, 44);
     size = game.canvasSize;
     final imageBg = Flame.images.fromCache(AssetsFlameImages.Background);
     final settingImage = Flame.images.fromCache(AssetsFlameImages.Frame_1);
@@ -49,14 +58,33 @@ class GamePage extends LogicalSizeComponent<AppGame> with TapCallbacks, Asteroid
           game.router.pushNamed('settings');
         },
       ),
-      player
+      player,
+      scoreComponent,
     ]);
-    spawnTimer = Timer(2, onTick: spawnObject, repeat: true);
-    spawnTimer.start();
+    interval = Timer(
+      2,
+      onTick: () {
+        elapsedSecs += 1;
+        spawnObject();
+      },
+      repeat: true,
+    );
+  }
+
+  int elapsedSecs = 0;
+
+  late Timer interval;
+
+  @override
+  void update(double dt) {
+    scoreComponent.text = score.toString();
+    super.update(dt);
+    interval.update(dt);
   }
 
   gameOver() {
     game.score = score;
+    score = 0;
     game.router.pushNamed('game_over');
   }
 
@@ -88,6 +116,12 @@ class GamePage extends LogicalSizeComponent<AppGame> with TapCallbacks, Asteroid
       player.startMoveRight();
     }
     super.onTapDown(event);
+  }
+
+  @override
+  void onTapUp(TapUpEvent event) {
+    player.stopMoving();
+    super.onTapUp(event);
   }
 
   @override

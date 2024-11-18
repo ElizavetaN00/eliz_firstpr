@@ -14,16 +14,27 @@ mixin AsteroidCoinsSpawn on LogicalSizeComponent<AppGame> {
     final isCoin = random.nextBool();
 
     final object = isCoin
-        ? CoinComponent(position: getRandomPosition(), size: logicalSizeCircle(120), image: AssetsFlameImages.Frame_2)
+        ? CoinComponent(
+            position: getRandomPosition(logicalSizeCircle(120).x),
+            size: logicalSizeCircle(120),
+            image: AssetsFlameImages.Frame_2)
         : ObstacleComponent(
-            position: getRandomPosition(), image: AssetsFlameImages.Frame_3, size: logicalSizeCircle(120));
+            position: getRandomPosition(logicalSizeCircle(120).x),
+            image: AssetsFlameImages.Frame_3,
+            size: logicalSizeCircle(120));
 
     add(object);
   }
 
-  Vector2 getRandomPosition() {
-    final x = random.nextDouble() * game.size.x; // случайная позиция по оси X
-    final y = random.nextDouble() * game.size.y / 2; // случайная позиция в верхней части экрана
+  Vector2 getRandomPosition(double objectX) {
+    var x = random.nextDouble() * game.size.x;
+    if (x < objectX / 2) {
+      x = x + objectX / 2;
+    }
+    if (x > game.size.x - objectX / 2) {
+      x = x - objectX / 2;
+    }
+    final double y = -200;
     return Vector2(x, y);
   }
 }

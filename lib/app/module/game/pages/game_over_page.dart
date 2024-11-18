@@ -1,3 +1,4 @@
+import 'package:color_puzzle/generated/assets_flame_images.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -9,9 +10,9 @@ import '../game.dart';
 class GameOverPage extends Component with HasGameReference<AppGame> {
   @override
   Future<void> onLoad() async {
-    final gameOverPopUp = await game.images.load('game_over.png');
-    final backToMenu = await game.images.load('Btn-Back to menu 1.png');
-    final restart = await game.images.load('Btn-Restart 1.png');
+    final gameOverPopUp = await game.images.load(AssetsFlameImages.Frame_8);
+    final backToMenu = await game.images.load(AssetsFlameImages.Group);
+    final restart = await game.images.load(AssetsFlameImages.Btn);
 
     final backToMenuComponent = SpriteWithTap(
       sprite: Sprite(backToMenu),
@@ -26,32 +27,30 @@ class GameOverPage extends Component with HasGameReference<AppGame> {
     final restartComponent = SpriteWithTap(
       sprite: Sprite(restart),
       onTap: () {
-        game.router.pop();
         game.newGame();
       },
-      position: LogicalSize.logicalSize(1100, 716),
-      size: LogicalSize.logicalSize(480, 164),
+      position: LogicalSize.logicalSize(200, 1233),
+      size: LogicalSize.logicalSize(678, 224),
     );
     final score = game.score;
-    final scoreComponent = TextComponent(
-      text: score.toString(),
-      anchor: Anchor.topCenter,
-      position: LogicalSize.logicalSize(LogicalSize.logicalXCenter, 400),
-      textRenderer: TextPaint(
-          style: const TextStyle(
-        fontSize: 70,
-        color: Color.fromRGBO(255, 10, 112, 1),
-        fontFamily: 'BungeeShade',
-      )),
-    );
+
     addAll([
       SpriteComponent(
+          children: [],
           sprite: Sprite(gameOverPopUp),
           position: game.canvasSize / 2,
           anchor: Anchor.center,
-          size: LogicalSize.logicalSize(1500, 1200)),
-      scoreComponent,
-      backToMenuComponent,
+          size: LogicalSize.logicalSize(921, 1073)),
+      TextComponent(
+        text: score.toString(),
+        anchor: Anchor.center,
+        position: Vector2(
+            LogicalSize.logicalWidth(530), LogicalSize.logicalHight(953 + 100)),
+        textRenderer: TextPaint(
+          style: const TextStyle(
+              fontSize: 70, color: Colors.white, fontWeight: FontWeight.w700),
+        ),
+      ),
       restartComponent,
     ]);
   }
