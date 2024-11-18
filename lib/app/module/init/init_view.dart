@@ -21,14 +21,11 @@ class _InitViewState extends State<InitView> {
 
   init() async {
     await GetStorage.init();
-    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    await SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (_) => WillPopScope(
-              onWillPop: () async => false,
-              child: GameWidget(game: AppGame()))));
+          builder: (_) => WillPopScope(onWillPop: () async => false, child: GameWidget(game: AppGame()))));
     });
   }
 

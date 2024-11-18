@@ -37,8 +37,8 @@ class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
 
     musicButton = SpriteWithTap(
       anchor: Anchor.topCenter,
-      size: LogicalSize.logicalSize(840, 164),
-      position: LogicalSize.logicalSize(960, 349),
+      size: logicalSize(840, 164),
+      position: logicalSize(960, 349),
       sprite: Sprite(
         isMusicOn ? musicOn : musicOff,
       ),
@@ -55,8 +55,8 @@ class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
 
     soundButton = SpriteWithTap(
       anchor: Anchor.topCenter,
-      size: LogicalSize.logicalSize(840, 164),
-      position: LogicalSize.logicalSize(960, 553),
+      size: logicalSize(840, 164),
+      position: logicalSize(960, 553),
       sprite: Sprite(
         isSoundOn ? soundOn : soundOff,
       ),
@@ -68,8 +68,8 @@ class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
 
     final tutorialButton = SpriteWithTap(
       anchor: Anchor.topCenter,
-      size: LogicalSize.logicalSize(840, 164),
-      position: LogicalSize.logicalSize(960, 757),
+      size: logicalSize(840, 164),
+      position: logicalSize(960, 757),
       sprite: Sprite(
         tutotialImage,
       ),
@@ -80,8 +80,8 @@ class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
 
     final closeButton = SpriteWithTap(
       anchor: Anchor.topRight,
-      size: LogicalSize.logicalSize(52, 52),
-      position: LogicalSize.logicalSize(1390, 150),
+      size: logicalSize(52, 52),
+      position: logicalSize(1390, 150),
       sprite: Sprite(
         closeImage,
       ),
@@ -92,8 +92,8 @@ class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
 
     popUpComponent = SpriteComponent(
       anchor: Anchor.center,
-      size: LogicalSize.logicalSize(1400, 1300),
-      position: LogicalSize.logicalSize(960, 540),
+      size: logicalSize(1400, 1300),
+      position: logicalSize(960, 540),
       sprite: Sprite(
         settingsPopUp,
       ),

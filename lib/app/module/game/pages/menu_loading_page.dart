@@ -1,3 +1,4 @@
+import 'package:color_puzzle/generated/assets_flame_images.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
@@ -8,9 +9,10 @@ import '../components/logical_size_component.dart';
 class MenuLoadingPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
   @override
   Future<void> onLoad() async {
-    final imageBg = Flame.images.fromCache('Background 2.png');
-    final imageLogo = Flame.images.fromCache('Name.png');
-    final spinnerImage = Flame.images.fromCache('Loader.png');
+    final imageBg = Flame.images.fromCache(AssetsFlameImages.Background);
+    final textLogo = Flame.images.fromCache(AssetsFlameImages.Logo);
+    final imageLogo = Flame.images.fromCache(AssetsFlameImages.img);
+    final spinnerImage = Flame.images.fromCache(AssetsFlameImages.Loader);
     // final spinnerSprite = Sprite(spinnerImage);
     addAll([
       SpriteComponent(
@@ -20,17 +22,26 @@ class MenuLoadingPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
         ),
       ),
       SpriteComponent(
-        anchor: Anchor.center,
-        size: logicalSize(600, 865),
-        position: LogicalSize.logicalPositionCenter(),
+        anchor: Anchor.topLeft,
+        size: logicalSize(1080, 382),
+        position: Vector2.zero(),
+        sprite: Sprite(
+          textLogo,
+        ),
+      ),
+      SpriteComponent(
+        anchor: Anchor.topLeft,
+        position: Vector2.zero(),
+        size: game.canvasSize,
         sprite: Sprite(
           imageLogo,
         ),
       ),
       RotatingImageComponent(
-        anchor: Anchor.topRight,
-        position: Vector2(game.canvasSize.x - 60, game.canvasSize.y - 60),
-        size: logicalSizeCircle(100),
+        anchor: Anchor.center,
+        //position bottom center
+        position: Vector2(game.canvasSize.x / 2, game.canvasSize.y - 100),
+        size: logicalSizeCircle(140),
         sprite: Sprite(
           spinnerImage,
         ),

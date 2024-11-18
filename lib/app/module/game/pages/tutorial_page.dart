@@ -20,16 +20,16 @@ class TutorialPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
 
     popUpComponent = SpriteComponent(
       anchor: Anchor.center,
-      size: LogicalSize.logicalSize(1600, 1280),
-      position: LogicalSize.logicalSize(960, 540),
+      size: logicalSize(1600, 1280),
+      position: logicalSize(960, 540),
       sprite: Sprite(
         tutorialPopUp,
       ),
     );
     final closeButton = SpriteWithTap(
       anchor: Anchor.topRight,
-      size: LogicalSize.logicalSize(52, 52),
-      position: LogicalSize.logicalSize(1550, 150),
+      size: logicalSize(52, 52),
+      position: logicalSize(1550, 150),
       sprite: Sprite(
         closeImage,
       ),

@@ -1,35 +1,22 @@
 import 'package:color_puzzle/app/module/game/routes/settings_route.dart';
 import 'package:color_puzzle/app/module/game/routes/tutorial_route.dart';
+import 'package:color_puzzle/generated/assets_flame_images.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart' as m;
 
-import '../../../data/app_resources.dart';
 import 'components/logical_size_component.dart';
 import 'routes/game_over_route.dart';
 import 'pages/level_page.dart';
 import 'pages/menu_loading_page.dart';
 import 'pages/menu_page.dart';
-import 'utils/generate_hole_list.dart';
 
 class AppGame extends FlameGame with HasCollisionDetection {
   late final RouterComponent router;
-
-  int score = 1000;
-
-  m.Color get currentColor => holeColorList.last;
-  late final List<m.Color> holeColorList;
-
-  nextColor() {
-    holeColorList.insert(0, holeColorList.last);
-    holeColorList.removeLast();
-  }
+  int score = 0;
 
   newGame() {
     router.pop();
-    Future.delayed(Duration(milliseconds: 100), () {
-      router.pushNamed('game');
-    });
   }
 
   @override
@@ -40,8 +27,7 @@ class AppGame extends FlameGame with HasCollisionDetection {
 
   @override
   Future<void> onLoad() async {
-    holeColorList = HoleListGenerator.generateHoleList();
-    for (final image in AppResources.flameImages) {
+    for (final image in AssetsFlameImages.all) {
       await Flame.images.load(image);
     }
 
