@@ -2,7 +2,6 @@ import 'package:color_puzzle/data/storage/storage.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame_audio/flame_audio.dart';
-import 'package:flutter/material.dart';
 import '../../../../generated/assets_flame_images.dart';
 import '../components/sprite_with_tap.dart';
 import '../game.dart';
@@ -41,7 +40,8 @@ class MenuPage extends LogicalSizeComponent<AppGame> {
       ),
       SpriteWithTap(
         anchor: Anchor.center,
-        position: Vector2(game.canvasSize.x / 2, game.canvasSize.y - logicalHeight(120)),
+        position: Vector2(
+            game.canvasSize.x / 2, game.canvasSize.y - logicalHeight(120)),
         size: logicalSize(330, 330),
         sprite: Sprite(
           playButton,
