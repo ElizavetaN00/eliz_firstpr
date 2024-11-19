@@ -2,29 +2,24 @@ import 'package:color_puzzle/generated/assets_flame_images.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 
 import '../components/logical_size_component.dart';
 import '../components/sprite_with_tap.dart';
 import '../game.dart';
 
-class GameOverPage extends Component
-    with HasGameReference<AppGame>, TapCallbacks {
+class GameOverPage extends Component with HasGameReference<AppGame>, TapCallbacks {
+  factory GameOverPage.draw() => GameOverPage(img: AssetsFlameImages.Frame_17);
+  factory GameOverPage.victory() => GameOverPage(img: AssetsFlameImages.Frame_18);
+  factory GameOverPage.loss() => GameOverPage(img: AssetsFlameImages.Frame_19);
+
+  String img;
+
+  GameOverPage({this.img = AssetsFlameImages.Frame_17});
+
   @override
   Future<void> onLoad() async {
-    final gameOverPopUp = await game.images.load(AssetsFlameImages.Frame_8);
-    final backToMenu = await game.images.load(AssetsFlameImages.Group);
-    final restart = await game.images.load(AssetsFlameImages.Btn);
-
-    final backToMenuComponent = SpriteWithTap(
-      sprite: Sprite(backToMenu),
-      onTap: () {
-        game.router.pop();
-        game.router.pop();
-      },
-      position: LogicalSize.logicalSize(580, 716),
-      size: LogicalSize.logicalSize(480, 164),
-    );
+    final gameOverPopUp = await game.images.load(img);
+    final restart = await game.images.load(AssetsFlameImages.Frame_20);
 
     final restartComponent = SpriteWithTap(
       sprite: Sprite(restart),
@@ -34,7 +29,7 @@ class GameOverPage extends Component
       position: LogicalSize.logicalSize(200, 1233),
       size: LogicalSize.logicalSize(678, 224),
     );
-    final score = game.score;
+    const score = 0;
 
     addAll([
       SpriteComponent(
@@ -46,11 +41,9 @@ class GameOverPage extends Component
       TextComponent(
         text: score.toString(),
         anchor: Anchor.center,
-        position: Vector2(
-            LogicalSize.logicalWidth(530), LogicalSize.logicalHight(953 + 100)),
+        position: Vector2(LogicalSize.logicalWidth(530), LogicalSize.logicalHight(953 + 100)),
         textRenderer: TextPaint(
-          style: const TextStyle(
-              fontSize: 70, color: Colors.white, fontWeight: FontWeight.w700),
+          style: const TextStyle(fontSize: 70, color: Colors.white, fontWeight: FontWeight.w700),
         ),
       ),
       restartComponent,

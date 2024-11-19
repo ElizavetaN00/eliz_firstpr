@@ -28,13 +28,12 @@ class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
   late final SpriteComponent popUpComponent;
   @override
   Future<void> onLoad() async {
-    settingsPopUp = Flame.images.fromCache(AssetsFlameImages.Frame_10);
-    musicOn = Flame.images.fromCache(AssetsFlameImages.Btn_1);
-    musicOff = Flame.images.fromCache(AssetsFlameImages.Btn_2);
-    soundOn = Flame.images.fromCache(AssetsFlameImages.Btn_4);
-    soundOff = Flame.images.fromCache(AssetsFlameImages.Btn_3);
-    tutorialImage = Flame.images.fromCache(AssetsFlameImages.Btn_5);
-    closeImage = Flame.images.fromCache(AssetsFlameImages.Group);
+    settingsPopUp = Flame.images.fromCache(AssetsFlameImages.Frame_40);
+    musicOn = Flame.images.fromCache(AssetsFlameImages.Frame_11);
+    musicOff = Flame.images.fromCache(AssetsFlameImages.Frame_11_1);
+    soundOn = Flame.images.fromCache(AssetsFlameImages.Frame_10_3);
+    soundOff = Flame.images.fromCache(AssetsFlameImages.Frame_10_2);
+    closeImage = Flame.images.fromCache(AssetsFlameImages.Frame_2);
 
     musicButton = SpriteWithTap(
       anchor: Anchor.topLeft,
@@ -67,18 +66,6 @@ class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
       },
     );
 
-    final tutorialButton = SpriteWithTap(
-      anchor: Anchor.topLeft,
-      size: logicalSize(676, 203),
-      position: logicalSize(201, 1301),
-      sprite: Sprite(
-        tutorialImage,
-      ),
-      onTap: () {
-        game.router.pushReplacementNamed('tutorial');
-      },
-    );
-
     final closeButton = SpriteWithTap(
       anchor: Anchor.topRight,
       size: logicalSize(100, 100),
@@ -107,7 +94,6 @@ class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
       popUpComponent,
       soundButton,
       musicButton,
-      tutorialButton,
       closeButton,
     ]);
   }

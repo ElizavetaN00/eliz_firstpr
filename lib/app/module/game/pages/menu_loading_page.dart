@@ -9,11 +9,9 @@ import '../components/logical_size_component.dart';
 class MenuLoadingPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
   @override
   Future<void> onLoad() async {
-    final imageBg = Flame.images.fromCache(AssetsFlameImages.Background);
-    final textLogo = Flame.images.fromCache(AssetsFlameImages.Logo);
-    final imageLogo = Flame.images.fromCache(AssetsFlameImages.img);
+    final imageBg = Flame.images.fromCache(AssetsFlameImages.img_10081453_1);
+    final textLogo = Flame.images.fromCache(AssetsFlameImages.img_1_copy_1);
     final spinnerImage = Flame.images.fromCache(AssetsFlameImages.Loader);
-    // final spinnerSprite = Sprite(spinnerImage);
     addAll([
       SpriteComponent(
         size: game.canvasSize,
@@ -29,17 +27,8 @@ class MenuLoadingPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
           textLogo,
         ),
       ),
-      SpriteComponent(
-        anchor: Anchor.topLeft,
-        position: Vector2.zero(),
-        size: game.canvasSize,
-        sprite: Sprite(
-          imageLogo,
-        ),
-      ),
       RotatingImageComponent(
         anchor: Anchor.center,
-        //position bottom center
         position: Vector2(game.canvasSize.x / 2, game.canvasSize.y - 100),
         size: logicalSizeCircle(140),
         sprite: Sprite(

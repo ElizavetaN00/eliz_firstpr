@@ -13,8 +13,7 @@ import '../components/sprite_with_tap.dart';
 import '../game.dart';
 import '../utils/asteroid_coins_spawn.dart';
 
-class GamePage extends LogicalSizeComponent<AppGame>
-    with TapCallbacks, AsteroidCoinsSpawn {
+class GamePage extends LogicalSizeComponent<AppGame> with TapCallbacks, AsteroidCoinsSpawn {
   @override
   AppGame get game => findGame()! as AppGame;
 
@@ -25,17 +24,15 @@ class GamePage extends LogicalSizeComponent<AppGame>
     text: 0.toString(),
     anchor: Anchor.center,
     textRenderer: TextPaint(
-      style: const TextStyle(
-          fontSize: 70, color: Colors.white, fontWeight: FontWeight.w700),
+      style: const TextStyle(fontSize: 70, color: Colors.white, fontWeight: FontWeight.w700),
     ),
   );
   @override
   Future<void> onLoad() async {
     scoreComponent.position = Vector2(game.size.x / 2, 44);
     size = game.canvasSize;
-    final imageBg = Flame.images.fromCache(AssetsFlameImages.Background);
-    final settingImage = Flame.images.fromCache(AssetsFlameImages.Frame_1);
-    game.score = score;
+    final imageBg = Flame.images.fromCache(AssetsFlameImages.img_10081453_1);
+    final settingImage = Flame.images.fromCache(AssetsFlameImages.Frame);
 
     bg = MovingBackground(
       axis: m.Axis.vertical,
@@ -83,7 +80,6 @@ class GamePage extends LogicalSizeComponent<AppGame>
   }
 
   gameOver() {
-    game.score = score;
     score = 0;
     game.router.pushNamed('game_over');
   }

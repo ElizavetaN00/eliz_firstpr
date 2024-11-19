@@ -45,7 +45,7 @@ generate_assets() {
     # If it's a directory, create a nested class
     if [ -d "$file" ]; then
       local dir_name=$(basename "$file")
-      local nested_class_name=$(echo "$dir_name" | sed -E 's/[^a-zA-Z0-9]/_/g' | sed -E 's/^[0-9]/_\0/')
+      local nested_class_name=$(echo "$dir_name" | sed -E 's/[^a-zA-Z0-9]/_/g' | sed -E 's/^[0-9]/img_\0/')
 
       echo "  static const $nested_class_name = _${nested_class_name}();" >> "$OUTPUT_FILE"
       echo "  class _${nested_class_name} {" >> "$OUTPUT_FILE"
@@ -55,7 +55,7 @@ generate_assets() {
     # If it's a file, generate a constant for the asset
     elif [ -f "$file" ]; then
       local file_name=$(basename "$file")
-      local asset_name=$(echo "$file_name" | sed -E 's/\.[a-zA-Z0-9]+$//' | sed -E 's/[^a-zA-Z0-9]/_/g' | sed -E 's/^[0-9]/_\0/')
+      local asset_name=$(echo "$file_name" | sed -E 's/\.[a-zA-Z0-9]+$//' | sed -E 's/[^a-zA-Z0-9]/_/g' | sed -E 's/^[0-9]/img_\0/')
       local relative_path
       if [ "$FULLPATH" = "true" ]; then
         relative_path="${file#assets/}"
