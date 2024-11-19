@@ -7,7 +7,7 @@ import 'package:flutter/material.dart' as m;
 
 import 'components/logical_size_component.dart';
 import 'routes/game_over_route.dart';
-import 'pages/level_page.dart';
+import 'pages/game_page.dart';
 import 'pages/menu_loading_page.dart';
 import 'pages/menu_page.dart';
 

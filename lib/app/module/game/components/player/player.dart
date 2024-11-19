@@ -6,7 +6,7 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/foundation.dart';
 import '../../../../../data/storage/storage.dart';
 import '../../game.dart';
-import '../../pages/level_page.dart';
+import '../../pages/game_page.dart';
 import '../logical_size_component.dart';
 
 class PlayerComponent extends SpriteAnimationComponent
