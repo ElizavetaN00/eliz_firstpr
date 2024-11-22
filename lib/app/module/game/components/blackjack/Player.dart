@@ -1,12 +1,10 @@
-
 import 'Hand.dart';
 import 'Card.dart';
 
 class Player {
-  final String name;
   final Hand hand = Hand();
 
-  Player(this.name);
+  Player();
 
   void hit(Card card) {
     hand.addCard(card);

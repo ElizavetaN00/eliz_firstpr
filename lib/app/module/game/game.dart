@@ -12,7 +12,7 @@ import 'pages/menu_page.dart';
 
 class AppGame extends FlameGame with HasCollisionDetection {
   late final RouterComponent router;
-
+  var colorId = 0;
   newGame() async {
     router.popUntilNamed('menu');
     await Future.delayed(const Duration(milliseconds: 100));

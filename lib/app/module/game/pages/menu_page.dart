@@ -1,28 +1,20 @@
-import 'package:color_puzzle/data/storage/storage.dart';
+import 'dart:async';
+
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
-import 'package:flame_audio/flame_audio.dart';
 import '../../../../generated/assets_flame_images.dart';
-import '../components/sprite_with_tap.dart';
+import '../components/my_sprite_component/my_sprite_component.dart';
+import '../components/my_sprite_component/tap_original_size.dart';
 import '../game.dart';
 import '../components/logical_size_component.dart';
 
 class MenuPage extends LogicalSizeComponent<AppGame> {
   @override
   Future<void> onLoad() async {
-    FlameAudio.bgm.initialize();
-
-    await FlameAudio.bgm.stop();
-    await FlameAudio.bgm.play('background.wav');
-    if (!AppStorage.musicEnabled.val) {
-      await FlameAudio.bgm.pause();
-    }
-
     final imageBg = Flame.images.fromCache(AssetsFlameImages.img_10081453_1);
     final imageLogo = Flame.images.fromCache(AssetsFlameImages.img_1_copy_1);
-    final playButton = Flame.images.fromCache(AssetsFlameImages.Frame);
+    final playButton = Flame.images.fromCache(AssetsFlameImages.Frame_5);
 
-    // final spinnerSprite = Sprite(spinnerImage);
     addAll([
       SpriteComponent(
         size: game.canvasSize,
@@ -30,19 +22,17 @@ class MenuPage extends LogicalSizeComponent<AppGame> {
           imageBg,
         ),
       ),
-      SpriteComponent(
+      OriginalSizeLogicSpriteComponent(
         anchor: Anchor.topLeft,
         position: Vector2.zero(),
-        size: game.canvasSize,
         sprite: Sprite(
           imageLogo,
         ),
       ),
-      SpriteWithTap(
+      OriginalSpriteWithTap(
         anchor: Anchor.center,
-        position: Vector2(
-            game.canvasSize.x / 2, game.canvasSize.y - logicalHeight(120)),
-        size: logicalSize(330, 330),
+        position: Vector2(game.canvasSize.x / 2,
+            game.canvasSize.y - logicalHeight(120 + 100)),
         sprite: Sprite(
           playButton,
         ),

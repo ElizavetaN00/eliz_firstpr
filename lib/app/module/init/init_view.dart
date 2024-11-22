@@ -27,7 +27,10 @@ class _InitViewState extends State<InitView> {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (_) => WillPopScope(
               onWillPop: () async => false,
-              child: SafeArea(child: GameWidget(game: AppGame())))));
+              child: SafeArea(
+                  top: true,
+                  bottom: true,
+                  child: GameWidget(game: AppGame())))));
     });
   }
 
