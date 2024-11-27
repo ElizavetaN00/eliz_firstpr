@@ -1,10 +1,14 @@
 import 'package:flame/game.dart';
+import 'package:flame/src/components/core/component.dart';
 
 import '../pages/settings_page.dart';
 
-class SettingsRoute extends Route {
+class SettingsRoute extends ValueRoute {
   SettingsRoute()
-      : super(SettingsPage.new, transparent: true, maintainState: false);
+      : super(
+          value: true,
+          transparent: true,
+        );
 
   @override
   void onPush(Route? previousRoute) {
@@ -15,5 +19,10 @@ class SettingsRoute extends Route {
   void onPop(Route nextRoute) {
     nextRoute..resumeTime();
     //   ..removeRenderEffect();
+  }
+
+  @override
+  Component build() {
+    return SettingsPage();
   }
 }

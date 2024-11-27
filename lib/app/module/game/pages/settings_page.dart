@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:color_puzzle/app/module/game/components/background_component.dart';
+import 'package:color_puzzle/app/module/game/components/my_sprite_component/my_sprite_component.dart';
+import 'package:color_puzzle/app/module/game/routes/colors_route.dart';
 import 'package:color_puzzle/data/storage/storage.dart';
 import 'package:color_puzzle/generated/assets_flame_images.dart';
 import 'package:flame/components.dart';
@@ -35,11 +37,22 @@ class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
     soundOn = Flame.images.fromCache(AssetsFlameImages.Frame_10_3);
     soundOff = Flame.images.fromCache(AssetsFlameImages.Frame_10_2);
     closeImage = Flame.images.fromCache(AssetsFlameImages.Frame_2);
+    var colorImage = Flame.images.fromCache(AssetsFlameImages.Frame_12);
+
+    var colorComponent = SpriteWithTap(
+      anchor: Anchor.topLeft,
+      size: logicalSize(676, 203),
+      position: logicalSize(201, 855),
+      sprite: Sprite(colorImage),
+      onTap: () async {
+        game.router.pushAndWait(ColorRoute(value: true));
+      },
+    );
 
     musicButton = SpriteWithTap(
       anchor: Anchor.topLeft,
       size: logicalSize(676, 203),
-      position: logicalSize(201, 855),
+      position: logicalSize(201, 1300),
       sprite: Sprite(
         isMusicOn ? musicOn : musicOff,
       ),
@@ -76,9 +89,8 @@ class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
       },
     );
 
-    popUpComponent = SpriteComponent(
+    popUpComponent = OriginalSizeLogicSpriteComponent(
       anchor: Anchor.topCenter,
-      size: logicalSize(1000, 1300),
       position: logicalSize(539, 400),
       sprite: Sprite(
         settingsPopUp,
@@ -90,6 +102,7 @@ class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
     addAll([
       background,
       popUpComponent,
+      colorComponent,
       soundButton,
       musicButton,
       closeButton,

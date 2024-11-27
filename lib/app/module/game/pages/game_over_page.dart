@@ -1,53 +1,80 @@
+import 'package:color_puzzle/app/module/game/components/my_sprite_component/my_sprite_component.dart';
+import 'package:color_puzzle/app/module/game/components/my_sprite_component/tap_original_size.dart';
 import 'package:color_puzzle/generated/assets_flame_images.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../data/storage/storage.dart';
 import '../components/logical_size_component.dart';
-import '../components/sprite_with_tap.dart';
 import '../game.dart';
 
 class GameOverPage extends PositionComponent
     with HasGameReference<AppGame>, TapCallbacks {
-  factory GameOverPage.draw() => GameOverPage(img: AssetsFlameImages.Frame_17);
-  factory GameOverPage.victory() =>
-      GameOverPage(img: AssetsFlameImages.Frame_18);
-  factory GameOverPage.loss() => GameOverPage(img: AssetsFlameImages.Frame_19);
+  factory GameOverPage.draw() =>
+      GameOverPage(img: AssetsFlameImages.Frame_17, sound: 'draw screen.wav');
+  factory GameOverPage.victory() => GameOverPage(
+      img: AssetsFlameImages.Frame_18, sound: 'victory screen.wav');
+  factory GameOverPage.loss() =>
+      GameOverPage(img: AssetsFlameImages.Frame_19, sound: 'lose screen.wav');
 
   String img;
 
-  GameOverPage({this.img = AssetsFlameImages.Frame_17, super.size});
+  GameOverPage(
+      {this.img = AssetsFlameImages.Frame_17,
+      super.size,
+      this.sound = 'draw screen.wav'});
+  final String sound;
+  bool isOnSound = AppStorage.soundEnabled.val;
+  @override
+  void onMount() {
+    if (isOnSound) {
+      FlameAudio.play(sound);
+    }
+    super.onMount();
+  }
 
   @override
   Future<void> onLoad() async {
     final gameOverPopUp = await game.images.load(img);
     final restart = await game.images.load(AssetsFlameImages.Frame_20);
 
-    final restartComponent = SpriteWithTap(
+    final restartComponent = OriginalSpriteWithTap(
       sprite: Sprite(restart),
       onTap: () {
         game.newGame();
       },
-      position: LogicalSize.logicalSize(200, 1233),
-      size: LogicalSize.logicalSize(678, 224),
+      position: LogicalSize.logicalSize(200, 1500),
     );
-    const score = 0;
+    var userScore = game.userScore;
+    var dealerScore = game.dealerScore;
 
     addAll([
-      SpriteComponent(
-          children: [],
-          sprite: Sprite(gameOverPopUp),
-          position: game.canvasSize / 2,
-          anchor: Anchor.center,
-          size: LogicalSize.logicalSize(921, 1073)),
+      OriginalSizeLogicSpriteComponent(
+        children: [],
+        sprite: Sprite(gameOverPopUp),
+        position: game.canvasSize / 2,
+        anchor: Anchor.center,
+      ),
       TextComponent(
-        text: score.toString(),
+        text: userScore.toString(),
         anchor: Anchor.center,
         position: Vector2(
-            LogicalSize.logicalWidth(530), LogicalSize.logicalHight(953 + 100)),
+            LogicalSize.logicalWidth(530), LogicalSize.logicalHight(953 + 200)),
         textRenderer: TextPaint(
           style: const TextStyle(
-              fontSize: 70, color: Colors.white, fontWeight: FontWeight.w700),
+              fontSize: 70, color: Colors.black, fontWeight: FontWeight.w700),
+        ),
+      ),
+      TextComponent(
+        text: dealerScore.toString(),
+        anchor: Anchor.center,
+        position: Vector2(
+            LogicalSize.logicalWidth(530), LogicalSize.logicalHight(930)),
+        textRenderer: TextPaint(
+          style: const TextStyle(
+              fontSize: 70, color: Colors.black, fontWeight: FontWeight.w700),
         ),
       ),
       restartComponent,

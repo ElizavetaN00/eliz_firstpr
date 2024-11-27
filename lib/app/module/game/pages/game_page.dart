@@ -1,6 +1,7 @@
 import 'package:color_puzzle/app/module/game/components/blackjack/Dealer.dart';
 import 'package:color_puzzle/app/module/game/components/my_sprite_component/my_sprite_component.dart';
 import 'package:color_puzzle/app/module/game/components/my_sprite_component/tap_original_size.dart';
+import 'package:color_puzzle/app/module/game/routes/settings_route.dart';
 import 'package:color_puzzle/generated/assets_flame_images.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -26,15 +27,15 @@ class GamePage extends LogicalSizeComponent<AppGame> with TapCallbacks {
       case 0:
         return AssetsFlameImages.Group_2033;
       case 1:
-        return AssetsFlameImages.Group_2035;
+        return AssetsFlameImages.Group_2039;
       case 2:
-        return AssetsFlameImages.Group_2036;
+        return AssetsFlameImages.Group_2038;
       case 3:
         return AssetsFlameImages.Group_2037;
       case 4:
-        return AssetsFlameImages.Group_2038;
+        return AssetsFlameImages.Group_2036;
       case 5:
-        return AssetsFlameImages.Group_2039;
+        return AssetsFlameImages.Group_2035;
     }
     return AssetsFlameImages.Group_2033;
   }
@@ -44,15 +45,15 @@ class GamePage extends LogicalSizeComponent<AppGame> with TapCallbacks {
       case 0:
         return AssetsFlameImages.img_9993296;
       case 1:
-        return AssetsFlameImages.img_9993297;
+        return AssetsFlameImages.img_9993301;
       case 2:
-        return AssetsFlameImages.img_9993298;
+        return AssetsFlameImages.img_9993300;
       case 3:
         return AssetsFlameImages.img_9993299;
       case 4:
-        return AssetsFlameImages.img_9993300;
+        return AssetsFlameImages.img_9993298;
       case 5:
-        return AssetsFlameImages.img_9993301;
+        return AssetsFlameImages.img_9993297;
     }
     return AssetsFlameImages.img_9993296;
   }
@@ -115,6 +116,8 @@ class GamePage extends LogicalSizeComponent<AppGame> with TapCallbacks {
   }
 
   restart() async {
+    game.userScore = 0;
+    game.dealerScore = 0;
     player = Player();
     dealer = Dealer();
     deck.shuffle();
@@ -143,12 +146,14 @@ class GamePage extends LogicalSizeComponent<AppGame> with TapCallbacks {
       add(getDealerCard());
       await Future.delayed(Duration(milliseconds: 500));
     }
+    game.dealerScore = dealer.score;
     gameOver();
   }
 
   hit() {
     player.hit(deck.dealCard());
     scoreComponent.text = player.score.toString();
+    game.userScore = player.score;
     if (player.score > 21) {
       gameOver();
       return;
@@ -191,6 +196,7 @@ class GamePage extends LogicalSizeComponent<AppGame> with TapCallbacks {
     size = game.canvasSize;
 
     var hand = OriginalSizeLogicSpriteComponent(
+        key: ComponentKey.named('deck'),
         anchor: Anchor.center,
         position: Vector2(0, game.canvasSize.y / 2),
         sprite: getSprite(getDeckImageByColor()));
@@ -240,8 +246,14 @@ class GamePage extends LogicalSizeComponent<AppGame> with TapCallbacks {
         sprite: Sprite(
           settingImage,
         ),
-        onTap: () {
-          game.router.pushNamed('settings');
+        onTap: () async {
+          await game.router.pushAndWait(SettingsRoute());
+          children
+              .where((element) => element.key == ComponentKey.named('deck'))
+              .forEach((element) {
+            (element as OriginalSizeLogicSpriteComponent).sprite =
+                getSprite(getDeckImageByColor());
+          });
         },
       ),
       scoreComponent,
