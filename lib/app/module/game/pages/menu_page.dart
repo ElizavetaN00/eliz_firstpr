@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
+import 'package:flame_audio/flame_audio.dart';
+import '../../../../data/storage/storage.dart';
 import '../../../../generated/assets_flame_images.dart';
 import '../components/my_sprite_component/my_sprite_component.dart';
 import '../components/my_sprite_component/tap_original_size.dart';
@@ -11,6 +13,13 @@ import '../components/logical_size_component.dart';
 class MenuPage extends LogicalSizeComponent<AppGame> {
   @override
   Future<void> onLoad() async {
+    FlameAudio.bgm.initialize();
+
+    await FlameAudio.bgm.stop();
+    await FlameAudio.bgm.play('background.wav');
+    if (!AppStorage.musicEnabled.val) {
+      await FlameAudio.bgm.pause();
+    }
     final imageBg = Flame.images.fromCache(AssetsFlameImages.img_10081453_1);
     final imageLogo = Flame.images.fromCache(AssetsFlameImages.img_1_copy_1);
     final playButton = Flame.images.fromCache(AssetsFlameImages.Frame_5);

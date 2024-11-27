@@ -5,21 +5,12 @@ import 'package:color_puzzle/app/module/game/components/tap_position/tap_positio
 import 'package:color_puzzle/app/module/game/game.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
-import 'package:flame_audio/flame_audio.dart';
 
-import '../../../../data/storage/storage.dart';
 import '../../../../generated/assets_flame_images.dart';
 
 class ColorPage extends LogicalSizeComponent<AppGame> {
   @override
   Future<void> onLoad() async {
-    FlameAudio.bgm.stop();
-    if (AppStorage.musicEnabled.val) {
-      await FlameAudio.bgm.play('background.wav');
-    } else {
-      await FlameAudio.bgm.pause();
-    }
-    var closeImage = Flame.images.fromCache(AssetsFlameImages.Frame_2);
     var bg = Flame.images.fromCache(AssetsFlameImages.Frame_21);
 
     var spriteComponentBg = OriginalSizeLogicSpriteComponent(
