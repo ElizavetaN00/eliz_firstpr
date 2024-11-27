@@ -22,10 +22,10 @@ samples, guidance on mobile development, and a full API reference.
     fullpath false = "i.png"
 
 # generate package name: 
-    dart run change_app_package_name:main com.spinrichsgakq
+    dart run change_app_package_name:main com.hollandcvdp.blck
 
 # rename app:
-    dart run rename_app:main all="Spinaway Riches"
+    dart run rename_app:main all="Holland Mobile"
 
 # launcher_icon generator
     dart run flutter_launcher_icons
