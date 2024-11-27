@@ -10,6 +10,7 @@ import 'package:flame_audio/flame_audio.dart';
 
 import '../components/logical_size_component.dart';
 import '../components/sprite_with_tap.dart';
+import '../components/tap_position/tap_position.dart';
 import '../game.dart';
 
 class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
@@ -66,13 +67,10 @@ class SettingsPage extends LogicalSizeComponent<AppGame> with TapCallbacks {
       },
     );
 
-    final closeButton = SpriteWithTap(
+    final closeButton = TapPositionComponent(
       anchor: Anchor.topRight,
-      size: logicalSize(100, 100),
-      position: logicalSize(910, 530),
-      sprite: Sprite(
-        closeImage,
-      ),
+      size: logicalSize(140, 140),
+      position: logicalSize(1000, 400),
       onTap: () {
         game.router.pop();
       },

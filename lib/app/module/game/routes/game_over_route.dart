@@ -1,9 +1,10 @@
 import 'package:flame/game.dart';
+import 'package:flame/src/components/core/component.dart';
 
 import '../pages/game_over_page.dart';
 
-class GameOverRoute extends Route {
-  GameOverRoute() : super(GameOverPage.new, transparent: true, maintainState: false);
+class GameOverRoute extends ValueRoute<bool> {
+  GameOverRoute({required super.value, super.transparent = true});
 
   @override
   void onPush(Route? previousRoute) {
@@ -15,5 +16,10 @@ class GameOverRoute extends Route {
     nextRoute
       ..resumeTime()
       ..removeRenderEffect();
+  }
+
+  @override
+  Component build() {
+    return GameOverPage();
   }
 }

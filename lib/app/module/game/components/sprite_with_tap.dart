@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 
 class SpriteWithTap extends SpriteComponent with TapCallbacks {
-  final void Function() onTap;
+  void Function() onTap;
   SpriteWithTap({
     required this.onTap,
     super.children,

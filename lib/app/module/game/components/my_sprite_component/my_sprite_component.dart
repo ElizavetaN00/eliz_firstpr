@@ -11,7 +11,8 @@ class OriginalSizeLogicSpriteComponent extends SpriteComponent {
       super.anchor,
       super.priority,
       super.size,
-      super.children});
+      super.children,
+      super.key});
 
   @override
   FutureOr<void> onLoad() {

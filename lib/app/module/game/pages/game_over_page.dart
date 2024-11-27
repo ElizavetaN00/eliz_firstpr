@@ -7,14 +7,16 @@ import '../components/logical_size_component.dart';
 import '../components/sprite_with_tap.dart';
 import '../game.dart';
 
-class GameOverPage extends Component with HasGameReference<AppGame>, TapCallbacks {
+class GameOverPage extends PositionComponent
+    with HasGameReference<AppGame>, TapCallbacks {
   factory GameOverPage.draw() => GameOverPage(img: AssetsFlameImages.Frame_17);
-  factory GameOverPage.victory() => GameOverPage(img: AssetsFlameImages.Frame_18);
+  factory GameOverPage.victory() =>
+      GameOverPage(img: AssetsFlameImages.Frame_18);
   factory GameOverPage.loss() => GameOverPage(img: AssetsFlameImages.Frame_19);
 
   String img;
 
-  GameOverPage({this.img = AssetsFlameImages.Frame_17});
+  GameOverPage({this.img = AssetsFlameImages.Frame_17, super.size});
 
   @override
   Future<void> onLoad() async {
@@ -41,9 +43,11 @@ class GameOverPage extends Component with HasGameReference<AppGame>, TapCallback
       TextComponent(
         text: score.toString(),
         anchor: Anchor.center,
-        position: Vector2(LogicalSize.logicalWidth(530), LogicalSize.logicalHight(953 + 100)),
+        position: Vector2(
+            LogicalSize.logicalWidth(530), LogicalSize.logicalHight(953 + 100)),
         textRenderer: TextPaint(
-          style: const TextStyle(fontSize: 70, color: Colors.white, fontWeight: FontWeight.w700),
+          style: const TextStyle(
+              fontSize: 70, color: Colors.white, fontWeight: FontWeight.w700),
         ),
       ),
       restartComponent,

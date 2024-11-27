@@ -14,9 +14,7 @@ class AppGame extends FlameGame with HasCollisionDetection {
   late final RouterComponent router;
   var colorId = 0;
   newGame() async {
-    router.popUntilNamed('menu');
-    await Future.delayed(const Duration(milliseconds: 100));
-    router.pushNamed('game');
+    router.pop();
   }
 
   @override
@@ -40,8 +38,8 @@ class AppGame extends FlameGame with HasCollisionDetection {
           'menu': Route(MenuPage.new),
           'settings': SettingsRoute(),
           // 'tutorial': TutorialRoute(),
-          'game': Route(GamePage.new, maintainState: true),
-          'game_over': GameOverRoute(),
+          'game': Route(GamePage.new, maintainState: false),
+          'game_over': GameOverRoute(value: true),
         },
         initialRoute: 'menu_loading',
       ),
