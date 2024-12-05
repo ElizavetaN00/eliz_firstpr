@@ -1,9 +1,8 @@
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../game/game.dart';
+import '../../app.dart';
 
 class InitView extends StatefulWidget {
   const InitView({super.key});
@@ -21,16 +20,9 @@ class _InitViewState extends State<InitView> {
 
   init() async {
     await GetStorage.init();
-    await SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (_) => WillPopScope(
-              onWillPop: () async => false,
-              child: SafeArea(
-                  top: true,
-                  bottom: true,
-                  child: GameWidget(game: AppGame())))));
+      Navigator.pushReplacementNamed(context, Routes.loading);
     });
   }
 

@@ -2,207 +2,128 @@
 class AssetsFlameImages {
   AssetsFlameImages._();
 
-  static const img_01 = '01.png';
-  static const img_02 = '02.png';
-  static const img_03 = '03.png';
-  static const img_04 = '04.png';
-  static const img_05 = '05.png';
-  static const img_06 = '06.png';
-  static const img_07 = '07.png';
-  static const img_08 = '08.png';
-  static const img_09 = '09.png';
-  static const img_1_copy_1 = '1 copy 1.png';
-  static const img_10 = '10.png';
-  static const img_10081453_1 = '10081453 1.jpg';
-  static const img_11 = '11.png';
-  static const img_12 = '12.png';
-  static const img_13 = '13.png';
-  static const img_14 = '14.png';
-  static const img_15 = '15.png';
-  static const img_16 = '16.png';
-  static const img_17 = '17.png';
-  static const img_18 = '18.png';
-  static const img_19 = '19.png';
-  static const img_20 = '20.png';
-  static const img_21 = '21.png';
-  static const img_22 = '22.png';
-  static const img_23 = '23.png';
-  static const img_24 = '24.png';
-  static const img_25 = '25.png';
-  static const img_26 = '26.png';
-  static const img_27 = '27.png';
-  static const img_28 = '28.png';
-  static const img_29 = '29.png';
-  static const img_30 = '30.png';
-  static const img_31 = '31.png';
-  static const img_32 = '32.png';
-  static const img_33 = '33.png';
-  static const img_34 = '34.png';
-  static const img_35 = '35.png';
-  static const img_36 = '36.png';
-  static const img_37 = '37.png';
-  static const img_38 = '38.png';
-  static const img_39 = '39.png';
-  static const img_40 = '40.png';
-  static const img_41 = '41.png';
-  static const img_42 = '42.png';
-  static const img_43 = '43.png';
-  static const img_44 = '44.png';
-  static const img_45 = '45.png';
-  static const img_46 = '46.png';
-  static const img_47 = '47.png';
-  static const img_48 = '48.png';
-  static const img_49 = '49.png';
-  static const img_50 = '50.png';
-  static const img_51 = '51.png';
-  static const img_52 = '52.png';
-  static const img_9993296 = '9993296.png';
-  static const img_9993297 = '9993297.png';
-  static const img_9993298 = '9993298.png';
-  static const img_9993299 = '9993299.png';
-  static const img_9993300 = '9993300.png';
-  static const img_9993301 = '9993301.png';
-  static const Frame_10_1 = 'Frame 10-1.png';
-  static const Frame_10_2 = 'Frame 10-2.png';
-  static const Frame_10_3 = 'Frame 10-3.png';
-  static const Frame_10 = 'Frame 10.png';
-  static const Frame_11_1 = 'Frame 11-1.png';
-  static const Frame_11 = 'Frame 11.png';
-  static const Frame_12 = 'Frame 12.png';
-  static const Frame_14 = 'Frame 14.jpg';
-  static const Frame_17 = 'Frame 17.png';
-  static const Frame_18 = 'Frame 18.png';
-  static const Frame_19 = 'Frame 19.png';
-  static const Frame_20 = 'Frame 20.png';
-  static const Frame_21 = 'Frame 21.png';
-  static const Frame_28 = 'Frame 28.png';
-  static const Frame_29 = 'Frame 29.png';
-  static const Frame_30 = 'Frame 30.png';
-  static const Frame_31 = 'Frame 31.png';
-  static const Frame_32 = 'Frame 32.png';
-  static const Frame_33 = 'Frame 33.png';
-  static const Frame_34 = 'Frame 34.png';
-  static const Frame_35 = 'Frame 35.png';
-  static const Frame_36 = 'Frame 36.png';
-  static const Frame_37 = 'Frame 37.png';
-  static const Frame_38 = 'Frame 38.png';
-  static const Frame_39 = 'Frame 39.png';
-  static const Frame_40 = 'Frame 40.png';
-  static const Frame_5_1 = 'Frame 5-1.png';
-  static const Frame_5_2 = 'Frame 5-2.png';
-  static const Frame_5 = 'Frame 5.png';
-  static const Frame_1 = 'Frame-1.png';
-  static const Frame_2 = 'Frame-2.png';
-  static const Frame_3 = 'Frame-3.png';
-  static const Frame = 'Frame.png';
-  static const Group_2033 = 'Group 2033.png';
-  static const Group_2035 = 'Group 2035.png';
-  static const Group_2036 = 'Group 2036.png';
-  static const Group_2037 = 'Group 2037.png';
-  static const Group_2038 = 'Group 2038.png';
-  static const Group_2039 = 'Group 2039.png';
-  static const Loader = 'Loader.png';
+  static const About_the_application_BG_About_the_application =
+      'images/About_the_application/BG_About_the_application.png';
+  static const About_the_application_button_close = 'images/About_the_application/button_close.png';
+  static const facts_BG_Gallery_of_facts_1 = 'images/facts/BG_Gallery_of_facts_1.png';
+  static const facts_BG_Gallery_of_facts_2 = 'images/facts/BG_Gallery_of_facts_2.png';
+  static const facts_button_close = 'images/facts/button_close.png';
+  static const facts_button_home = 'images/facts/button_home.png';
+  static const facts_pop_up_facts_ask_1 = 'images/facts/pop-up_facts_ask_1.png';
+  static const facts_pop_up_facts_ask_10 = 'images/facts/pop-up_facts_ask_10.png';
+  static const facts_pop_up_facts_ask_10_on = 'images/facts/pop-up_facts_ask_10_on.png';
+  static const facts_pop_up_facts_ask_10_open = 'images/facts/pop-up_facts_ask_10_open.png';
+  static const facts_pop_up_facts_ask_1_on = 'images/facts/pop-up_facts_ask_1_on.png';
+  static const facts_pop_up_facts_ask_1_open = 'images/facts/pop-up_facts_ask_1_open.png';
+  static const facts_pop_up_facts_ask_2 = 'images/facts/pop-up_facts_ask_2.png';
+  static const facts_pop_up_facts_ask_2_on = 'images/facts/pop-up_facts_ask_2_on.png';
+  static const facts_pop_up_facts_ask_2_open = 'images/facts/pop-up_facts_ask_2_open.png';
+  static const facts_pop_up_facts_ask_3 = 'images/facts/pop-up_facts_ask_3.png';
+  static const facts_pop_up_facts_ask_3_on = 'images/facts/pop-up_facts_ask_3_on.png';
+  static const facts_pop_up_facts_ask_3_open = 'images/facts/pop-up_facts_ask_3_open.png';
+  static const facts_pop_up_facts_ask_4 = 'images/facts/pop-up_facts_ask_4.png';
+  static const facts_pop_up_facts_ask_4_on = 'images/facts/pop-up_facts_ask_4_on.png';
+  static const facts_pop_up_facts_ask_4_open = 'images/facts/pop-up_facts_ask_4_open.png';
+  static const facts_pop_up_facts_ask_5 = 'images/facts/pop-up_facts_ask_5.png';
+  static const facts_pop_up_facts_ask_5_on = 'images/facts/pop-up_facts_ask_5_on.png';
+  static const facts_pop_up_facts_ask_5_open = 'images/facts/pop-up_facts_ask_5_open.png';
+  static const facts_pop_up_facts_ask_6 = 'images/facts/pop-up_facts_ask_6.png';
+  static const facts_pop_up_facts_ask_6_on = 'images/facts/pop-up_facts_ask_6_on.png';
+  static const facts_pop_up_facts_ask_6_open = 'images/facts/pop-up_facts_ask_6_open.png';
+  static const facts_pop_up_facts_ask_7 = 'images/facts/pop-up_facts_ask_7.png';
+  static const facts_pop_up_facts_ask_7_on = 'images/facts/pop-up_facts_ask_7_on.png';
+  static const facts_pop_up_facts_ask_7_open = 'images/facts/pop-up_facts_ask_7_open.png';
+  static const facts_pop_up_facts_ask_8 = 'images/facts/pop-up_facts_ask_8.png';
+  static const facts_pop_up_facts_ask_8_on = 'images/facts/pop-up_facts_ask_8_on.png';
+  static const facts_pop_up_facts_ask_8_open = 'images/facts/pop-up_facts_ask_8_open.png';
+  static const facts_pop_up_facts_ask_9 = 'images/facts/pop-up_facts_ask_9.png';
+  static const facts_pop_up_facts_ask_9_on = 'images/facts/pop-up_facts_ask_9_on.png';
+  static const facts_pop_up_facts_ask_9_open = 'images/facts/pop-up_facts_ask_9_open.png';
+  static const game_BG_game = 'images/game/BG_game.png';
+  static const game_button_check = 'images/game/button_check.png';
+  static const game_button_close = 'images/game/button_close.png';
+  static const game_button_home = 'images/game/button_home.png';
+  static const game_button_reply = 'images/game/button_reply.png';
+  static const game_button_reply_marked = 'images/game/button_reply_marked.png';
+  static const game_button_wrong_answer = 'images/game/button_wrong_answer.png';
+  static const game_pop_up_facts_ask_10_open = 'images/game/pop-up_facts_ask_10_open.png';
+  static const game_pop_up_facts_ask_1_open = 'images/game/pop-up_facts_ask_1_open.png';
+  static const game_pop_up_facts_ask_2_open = 'images/game/pop-up_facts_ask_2_open.png';
+  static const game_pop_up_facts_ask_3_open = 'images/game/pop-up_facts_ask_3_open.png';
+  static const game_pop_up_facts_ask_4_open = 'images/game/pop-up_facts_ask_4_open.png';
+  static const game_pop_up_facts_ask_5_open = 'images/game/pop-up_facts_ask_5_open.png';
+  static const game_pop_up_facts_ask_6_open = 'images/game/pop-up_facts_ask_6_open.png';
+  static const game_pop_up_facts_ask_7_open = 'images/game/pop-up_facts_ask_7_open.png';
+  static const game_pop_up_facts_ask_8_open = 'images/game/pop-up_facts_ask_8_open.png';
+  static const game_pop_up_facts_ask_9_open = 'images/game/pop-up_facts_ask_9_open.png';
+  static const menu_BG_manu = 'images/menu/BG_manu.png';
+  static const menu_button_About_the_application = 'images/menu/button_About_the_application.png';
+  static const menu_button_Gallery_of_facts = 'images/menu/button_Gallery_of_facts.png';
+  static const menu_button_quiz = 'images/menu/button_quiz.png';
+  static const preload_BG_Loader = 'images/preload/BG_Loader.png';
+  static const preload_logo = 'images/preload/logo.png';
+  static const preload_spiner = 'images/preload/spiner.png';
 
   static const List<String> all = [
-    img_01,
-    img_02,
-    img_03,
-    img_04,
-    img_05,
-    img_06,
-    img_07,
-    img_08,
-    img_09,
-    img_1_copy_1,
-    img_10,
-    img_10081453_1,
-    img_11,
-    img_12,
-    img_13,
-    img_14,
-    img_15,
-    img_16,
-    img_17,
-    img_18,
-    img_19,
-    img_20,
-    img_21,
-    img_22,
-    img_23,
-    img_24,
-    img_25,
-    img_26,
-    img_27,
-    img_28,
-    img_29,
-    img_30,
-    img_31,
-    img_32,
-    img_33,
-    img_34,
-    img_35,
-    img_36,
-    img_37,
-    img_38,
-    img_39,
-    img_40,
-    img_41,
-    img_42,
-    img_43,
-    img_44,
-    img_45,
-    img_46,
-    img_47,
-    img_48,
-    img_49,
-    img_50,
-    img_51,
-    img_52,
-    img_9993296,
-    img_9993297,
-    img_9993298,
-    img_9993299,
-    img_9993300,
-    img_9993301,
-    Frame_10_1,
-    Frame_10_2,
-    Frame_10_3,
-    Frame_10,
-    Frame_11_1,
-    Frame_11,
-    Frame_12,
-    Frame_14,
-    Frame_17,
-    Frame_18,
-    Frame_19,
-    Frame_20,
-    Frame_21,
-    Frame_28,
-    Frame_29,
-    Frame_30,
-    Frame_31,
-    Frame_32,
-    Frame_33,
-    Frame_34,
-    Frame_35,
-    Frame_36,
-    Frame_37,
-    Frame_38,
-    Frame_39,
-    Frame_40,
-    Frame_5_1,
-    Frame_5_2,
-    Frame_5,
-    Frame_1,
-    Frame_2,
-    Frame_3,
-    Frame,
-    Group_2033,
-    Group_2035,
-    Group_2036,
-    Group_2037,
-    Group_2038,
-    Group_2039,
-    Loader,
+    About_the_application_BG_About_the_application,
+    About_the_application_button_close,
+    facts_BG_Gallery_of_facts_1,
+    facts_BG_Gallery_of_facts_2,
+    facts_button_close,
+    facts_button_home,
+    facts_pop_up_facts_ask_1,
+    facts_pop_up_facts_ask_10,
+    facts_pop_up_facts_ask_10_on,
+    facts_pop_up_facts_ask_10_open,
+    facts_pop_up_facts_ask_1_on,
+    facts_pop_up_facts_ask_1_open,
+    facts_pop_up_facts_ask_2,
+    facts_pop_up_facts_ask_2_on,
+    facts_pop_up_facts_ask_2_open,
+    facts_pop_up_facts_ask_3,
+    facts_pop_up_facts_ask_3_on,
+    facts_pop_up_facts_ask_3_open,
+    facts_pop_up_facts_ask_4,
+    facts_pop_up_facts_ask_4_on,
+    facts_pop_up_facts_ask_4_open,
+    facts_pop_up_facts_ask_5,
+    facts_pop_up_facts_ask_5_on,
+    facts_pop_up_facts_ask_5_open,
+    facts_pop_up_facts_ask_6,
+    facts_pop_up_facts_ask_6_on,
+    facts_pop_up_facts_ask_6_open,
+    facts_pop_up_facts_ask_7,
+    facts_pop_up_facts_ask_7_on,
+    facts_pop_up_facts_ask_7_open,
+    facts_pop_up_facts_ask_8,
+    facts_pop_up_facts_ask_8_on,
+    facts_pop_up_facts_ask_8_open,
+    facts_pop_up_facts_ask_9,
+    facts_pop_up_facts_ask_9_on,
+    facts_pop_up_facts_ask_9_open,
+    game_BG_game,
+    game_button_check,
+    game_button_close,
+    game_button_home,
+    game_button_reply,
+    game_button_reply_marked,
+    game_button_wrong_answer,
+    game_pop_up_facts_ask_10_open,
+    game_pop_up_facts_ask_1_open,
+    game_pop_up_facts_ask_2_open,
+    game_pop_up_facts_ask_3_open,
+    game_pop_up_facts_ask_4_open,
+    game_pop_up_facts_ask_5_open,
+    game_pop_up_facts_ask_6_open,
+    game_pop_up_facts_ask_7_open,
+    game_pop_up_facts_ask_8_open,
+    game_pop_up_facts_ask_9_open,
+    menu_BG_manu,
+    menu_button_About_the_application,
+    menu_button_Gallery_of_facts,
+    menu_button_quiz,
+    preload_BG_Loader,
+    preload_logo,
+    preload_spiner,
   ];
 }

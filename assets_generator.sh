@@ -38,32 +38,23 @@ VARIABLE_LIST=()
 # Function to process files and generate entries
 generate_assets() {
   local dir_path="$1"
-  local class_path="${2:-Assets}"
+  local prefix="${2:-}"
 
   # Iterate over files and directories
   for file in "$dir_path"/*; do
-    # If it's a directory, create a nested class
-    if [ -d "$file" ]; then
-      local dir_name=$(basename "$file")
-      local nested_class_name=$(echo "$dir_name" | sed -E 's/[^a-zA-Z0-9]/_/g' | sed -E 's/^[0-9]/img_\0/')
-
-      echo "  static const $nested_class_name = _${nested_class_name}();" >> "$OUTPUT_FILE"
-      echo "  class _${nested_class_name} {" >> "$OUTPUT_FILE"
-      echo "    const _${nested_class_name}();" >> "$OUTPUT_FILE"
-      generate_assets "$file" "${class_path}.${nested_class_name}"
-      echo "  }" >> "$OUTPUT_FILE"
     # If it's a file, generate a constant for the asset
-    elif [ -f "$file" ]; then
+    if [ -f "$file" ]; then
       local file_name=$(basename "$file")
-      local asset_name=$(echo "$file_name" | sed -E 's/\.[a-zA-Z0-9]+$//' | sed -E 's/[^a-zA-Z0-9]/_/g' | sed -E 's/^[0-9]/img_\0/')
-      local relative_path
-      if [ "$FULLPATH" = "true" ]; then
-        relative_path="${file#assets/}"
-      else
-        relative_path="${file#assets/images/}"
-      fi
-      echo "    static const $asset_name = '$relative_path';" >> "$OUTPUT_FILE"
+      local relative_path="${file#assets/images/}"
+      local asset_name=$(echo "${prefix}$(basename "${relative_path%.*}")" | sed -E 's/[^a-zA-Z0-9]/_/g' | sed -E 's/^[^a-zA-Z]/f\0/')
+      
+      echo "  static const $asset_name = 'images/$relative_path';" >> "$OUTPUT_FILE"
       VARIABLE_LIST+=("$asset_name")
+    # If it's a directory, recursively process its files
+    elif [ -d "$file" ]; then
+      local dir_name=$(basename "$file")
+      local sanitized_prefix=$(echo "$dir_name" | sed -E 's/[^a-zA-Z0-9]/_/g' | sed -E 's/^[^a-zA-Z]/f\0/')
+      generate_assets "$file" "${prefix}${sanitized_prefix}_"
     fi
   done
 }

@@ -16,16 +16,21 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 ### Generate:
+
 # generate assets images for flame:
+
     bash assets_generator.sh --fullpath false
     fullpath true = "assets/images/i.png"
     fullpath false = "i.png"
 
-# generate package name: 
-    dart run change_app_package_name:main com.hollandcvdp.blck
+# generate package name:
+
+    dart run change_app_package_name:main com.coderequiz.gamesapp
 
 # rename app:
+
     dart run rename_app:main all="Holland Mobile"
 
 # launcher_icon generator
+
     dart run flutter_launcher_icons

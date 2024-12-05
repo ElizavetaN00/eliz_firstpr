@@ -1,4 +1,4 @@
-package com.hollandcvdp.blck
+package com.coderequiz.gamesapp
 
 import io.flutter.embedding.android.FlutterActivity
 
