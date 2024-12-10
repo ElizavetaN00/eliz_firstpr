@@ -33,19 +33,22 @@ class _MenuState extends State<Menu> {
                           onTap: () {
                             Navigator.pushNamed(context, Routes.game);
                           },
-                          child: Image.asset(AssetsFlameImages.menu_button_quiz)),
+                          child:
+                              Image.asset(AssetsFlameImages.menu_button_quiz)),
                       const SizedBox(height: 20),
                       InkWell(
                           onTap: () {
                             Navigator.pushNamed(context, Routes.gallery);
                           },
-                          child: Image.asset(AssetsFlameImages.menu_button_Gallery_of_facts)),
+                          child: Image.asset(
+                              AssetsFlameImages.menu_button_Gallery_of_facts)),
                       const SizedBox(height: 20),
                       InkWell(
                           onTap: () {
                             Navigator.pushNamed(context, Routes.about);
                           },
-                          child: Image.asset(AssetsFlameImages.menu_button_About_the_application)),
+                          child: Image.asset(AssetsFlameImages
+                              .menu_button_About_the_application)),
                       const SizedBox(height: 100),
                     ],
                   ),
