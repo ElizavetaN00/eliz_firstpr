@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../data/storage/storage.dart';
 import '../../../../generated/assets_flame_images.dart';
 import '../widgets/back_button/back_button.dart';
 import 'cards/cards_model.dart';
@@ -8,7 +9,14 @@ class Achivments extends StatelessWidget {
   const Achivments({super.key});
 
   int getStarsCount() {
-    return cardList.where((element) => element.stars > 0).length;
+    var length = cardList.where((element) => element.stars > 0).length;
+    return length > 10 ? 10 : length;
+  }
+
+  int getMyMixturesCount() {
+    var list = AppStorage.myMixtures.val;
+    var length = list.length > 10 ? 10 : list.length;
+    return length;
   }
 
   @override
@@ -34,7 +42,7 @@ class Achivments extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         children: [
                           Image.asset(AssetsFlameImages.game_alchemist_potion_bookcover),
-                          // text('Create ${AppStorage.achivmentsCount.val}/10 mixtures'),
+                          text('Create ${getMyMixturesCount()}/10 mixtures'),
                         ],
                       ),
                       const SizedBox(height: 20),
