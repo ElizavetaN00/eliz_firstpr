@@ -92,6 +92,7 @@ class AssetsFlameImages {
   static const game_rose = 'assets/images/game/rose.png';
   static const game_rose_illustration = 'assets/images/game/rose_illustration.png';
   static const game_sage_heart_red_gem = 'assets/images/game/sage_heart_red_gem.png';
+  static const game_save = 'assets/images/game/save.png';
   static const game_settings_gear = 'assets/images/game/settings_gear.png';
   static const game_tea_cup_with_leaf_in_it = 'assets/images/game/tea_cup_with_leaf_in_it.png';
   static const game_water_pitcher_on_book = 'assets/images/game/water_pitcher_on_book.png';
@@ -191,6 +192,7 @@ class AssetsFlameImages {
     game_rose,
     game_rose_illustration,
     game_sage_heart_red_gem,
+    game_save,
     game_settings_gear,
     game_tea_cup_with_leaf_in_it,
     game_water_pitcher_on_book,

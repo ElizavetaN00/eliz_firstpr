@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:game/data/storage/storage.dart';
 
 import '../../../../generated/assets_flame_images.dart';
 import '../widgets/back_button/back_button.dart';
+import 'cards/cards_model.dart';
 
 class Achivments extends StatelessWidget {
   const Achivments({super.key});
+
+  int getStarsCount() {
+    return cardList.where((element) => element.stars > 0).length;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,7 @@ class Achivments extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         children: [
                           Image.asset(AssetsFlameImages.game_alchemist_potion_bookcover),
-                          text('Create ${AppStorage.achivmentsCount.val}/10 mixtures'),
+                          // text('Create ${AppStorage.achivmentsCount.val}/10 mixtures'),
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -40,7 +44,7 @@ class Achivments extends StatelessWidget {
                           Image.asset(
                             AssetsFlameImages.game_sage_heart_red_gem,
                           ),
-                          text('Rate ${AppStorage.rateCount.val}/10 mixtures'),
+                          text('Collect ${getStarsCount()}/10 gems'),
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -65,7 +69,7 @@ class Achivments extends StatelessWidget {
           ),
           Text(
             text,
-            style: const TextStyle(fontSize: 20),
+            style: const TextStyle(fontSize: 20, fontFamily: 'Cuprum', fontWeight: FontWeight.w700),
           ),
         ],
       ),

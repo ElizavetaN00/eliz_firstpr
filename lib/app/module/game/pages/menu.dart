@@ -31,7 +31,7 @@ class _MenuState extends State<Menu> {
                     children: [
                       InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, Routes.game);
+                            Navigator.pushNamed(context, Routes.all);
                           },
                           child: Image.asset(AssetsFlameImages.game_herbal_tea_collection)),
                       const SizedBox(height: 20),
