@@ -29,18 +29,9 @@ class _LoadingState extends State<Loading> {
           fit: StackFit.expand,
           children: [
             Image.asset(
-              AssetsFlameImages.menu_BG_manu,
+              AssetsFlameImages.bg_magicians_herbs,
               fit: BoxFit.cover,
             ),
-            Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 100.0),
-                  child: LoopingSpinAnimation(
-                      child: SizedBox(
-                          width: MediaQuery.of(context).size.width / 2,
-                          child: Image.asset(AssetsFlameImages.preload_spiner))),
-                )),
           ],
         ),
       ),

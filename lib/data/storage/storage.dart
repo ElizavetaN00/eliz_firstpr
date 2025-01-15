@@ -6,4 +6,6 @@ abstract class AppStorage {
   static final soundEnabled = true.val('soundEnabled');
 
   static final musicEnabled = true.val('musicEnabled');
+  static final achivmentsCount = 0.val('achivmentsCount');
+  static final rateCount = 0.val('rateCount');
 }

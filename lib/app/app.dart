@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:game/app/module/game/pages/quiz/quiz.dart';
-import 'package:game/app/module/game/pages/quiz/quiz_end.dart';
-
-import 'module/game/pages/about.dart';
-import 'module/game/pages/gallery.dart';
+import 'package:game/app/module/game/pages/achivments.dart';
+import 'package:game/app/module/game/pages/my_mixtures.dart';
+import 'package:game/app/module/game/pages/settings.dart';
 import 'module/game/pages/loading.dart';
 import 'module/game/pages/menu.dart';
 import 'module/init/init_view.dart';
@@ -14,15 +12,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Codere Games',
+      title: 'Magician’s Herbs',
       routes: {
         '/': (_) => const InitView(),
         Routes.loading: (_) => const Loading(),
         Routes.menu: (_) => const Menu(),
-        Routes.game: (_) => const Quiz(),
-        Routes.end: (_) => const EndPopUp(),
-        Routes.about: (_) => const About(),
-        Routes.gallery: (_) => const Gallery(),
+        Routes.settings: (_) => const Settings(),
+        Routes.achivments: (_) => const Achivments(),
+        Routes.myMixtures: (_) => const MyMixtures(),
       },
       initialRoute: '/',
     );
@@ -36,6 +33,7 @@ class Routes {
   static const String game = '/game';
   static const String menu = '/menu';
   static const String loading = '/loading';
-  static const String gallery = '/gallery';
-  static const String about = '/about';
+  static const String achivments = '/achivments';
+  static const String settings = '/settings';
+  static const String myMixtures = '/my_mixtures';
 }

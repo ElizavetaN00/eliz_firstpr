@@ -48,7 +48,7 @@ generate_assets() {
       local relative_path="${file#assets/images/}"
       local asset_name=$(echo "${prefix}$(basename "${relative_path%.*}")" | sed -E 's/[^a-zA-Z0-9]/_/g' | sed -E 's/^[^a-zA-Z]/f\0/')
       
-      echo "  static const $asset_name = 'images/$relative_path';" >> "$OUTPUT_FILE"
+      echo "  static const $asset_name = 'assets/images/$relative_path';" >> "$OUTPUT_FILE"
       VARIABLE_LIST+=("$asset_name")
     # If it's a directory, recursively process its files
     elif [ -d "$file" ]; then

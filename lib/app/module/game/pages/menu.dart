@@ -19,7 +19,7 @@ class _MenuState extends State<Menu> {
           fit: StackFit.expand,
           children: [
             Image.asset(
-              AssetsFlameImages.menu_BG_manu,
+              AssetsFlameImages.bg_magical_library_bookshelf_gemstones,
               fit: BoxFit.cover,
             ),
             Padding(
@@ -33,22 +33,25 @@ class _MenuState extends State<Menu> {
                           onTap: () {
                             Navigator.pushNamed(context, Routes.game);
                           },
-                          child:
-                              Image.asset(AssetsFlameImages.menu_button_quiz)),
+                          child: Image.asset(AssetsFlameImages.game_herbal_tea_collection)),
                       const SizedBox(height: 20),
                       InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, Routes.gallery);
+                            Navigator.pushNamed(context, Routes.myMixtures);
                           },
-                          child: Image.asset(
-                              AssetsFlameImages.menu_button_Gallery_of_facts)),
+                          child: Image.asset(AssetsFlameImages.game_mixtured_potions)),
                       const SizedBox(height: 20),
                       InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, Routes.about);
+                            Navigator.pushNamed(context, Routes.achivments);
                           },
-                          child: Image.asset(AssetsFlameImages
-                              .menu_button_About_the_application)),
+                          child: Image.asset(AssetsFlameImages.game_achievement_icons)),
+                      const SizedBox(height: 20),
+                      InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, Routes.settings);
+                          },
+                          child: Image.asset(AssetsFlameImages.game_settings_gear)),
                       const SizedBox(height: 100),
                     ],
                   ),

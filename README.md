@@ -25,7 +25,7 @@ samples, guidance on mobile development, and a full API reference.
 
 # generate package name:
 
-    dart run change_app_package_name:main com.coderequiz.gamesapp
+    dart run change_app_package_name:main com.herbaetcollect
 
 # rename app:
 
