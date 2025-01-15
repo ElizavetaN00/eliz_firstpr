@@ -7,14 +7,14 @@ class MyMixturesModel {
 
   static MyMixturesModel fromStorage(Map<String, dynamic> data) {
     var name = data['name'];
-    var cardsListInts = (data['cardsList'] as List<String>);
+    var cardsListString = data['cardsList'];
     return MyMixturesModel(
       name: name,
-      cardsList: cardList.where((element) => cardsListInts.contains(element.id)).toList(),
+      cardsList: cardList.where((element) => cardsListString.contains(element.id)).toList(),
     );
   }
 
-  toStorage() {
+  Map<String, dynamic> toStorage() {
     return {
       'name': name,
       'cardsList': cardsList.map((e) => e.id).toList(),

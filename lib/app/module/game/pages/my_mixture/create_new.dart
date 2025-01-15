@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:game/app/module/game/pages/cards/cards_model.dart';
 
+import '../../../../../data/storage/storage.dart';
 import '../../../../../generated/assets_flame_images.dart';
 import '../../widgets/back_button/back_button.dart';
 import '../cards/cards_view.dart';
+import 'my_mixtures_model.dart';
 
 class MyMixturesCreateNew extends StatefulWidget {
   const MyMixturesCreateNew({super.key});
@@ -94,7 +96,21 @@ class _MyMixturesCreateNewState extends State<MyMixturesCreateNew> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 40.0),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    AppStorage.myMixtures.val = [
+                      ...AppStorage.myMixtures.val,
+                      MyMixturesModel(
+                        name: textController.text,
+                        cardsList: cardsList,
+                      ).toStorage()
+                    ];
+                    Navigator.pop(
+                        context,
+                        MyMixturesModel(
+                          name: textController.text,
+                          cardsList: cardsList,
+                        ));
+                  },
                   child: Image.asset(
                     AssetsFlameImages.game_save,
                     height: 100,
