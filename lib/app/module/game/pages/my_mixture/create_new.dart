@@ -61,6 +61,9 @@ class _MyMixturesCreateNewState extends State<MyMixturesCreateNew> {
                 const SizedBox(height: 8),
                 InkWell(
                     onTap: () async {
+                      if (cardsList.length >= 4) {
+                        return;
+                      }
                       var result = await Navigator.push(
                           context,
                           MaterialPageRoute(

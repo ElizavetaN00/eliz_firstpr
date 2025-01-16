@@ -32,6 +32,18 @@ class _LoadingState extends State<Loading> {
               AssetsFlameImages.bg_magicians_herbs,
               fit: BoxFit.cover,
             ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 50.0),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: LoopingSpinAnimation(
+                  child: Image.asset(
+                    AssetsFlameImages.game_circle,
+                    height: 50,
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
