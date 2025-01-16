@@ -1,3 +1,4 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:game/data/storage/storage.dart';
 
@@ -50,12 +51,18 @@ class _SettingsState extends State<Settings> {
                             setState(() {
                               musicEnabled = !musicEnabled;
                               AppStorage.musicEnabled.val = musicEnabled;
+                              if (musicEnabled) {
+                                FlameAudio.bgm.resume();
+                              } else {
+                                FlameAudio.bgm.pause();
+                              }
                             });
                           },
                           child: Image.asset(
                             musicEnabled
                                 ? AssetsFlameImages.settings_music_on_off
-                                : AssetsFlameImages.settings_music_off_oval_buttons_dark_green,
+                                : AssetsFlameImages
+                                    .settings_music_off_oval_buttons_dark_green,
                           )),
                       const SizedBox(height: 20),
                     ],

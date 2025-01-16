@@ -29,7 +29,7 @@ samples, guidance on mobile development, and a full API reference.
 
 # rename app:
 
-    dart run rename_app:main all="Holland Mobile"
+    dart run rename_app:main all="Magician’s Herbs"
 
 # launcher_icon generator
 

@@ -1,3 +1,4 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:game/app/module/game/pages/cards/cards_model.dart';
@@ -9,7 +10,8 @@ import '../cards/cards_view.dart';
 import 'my_mixtures_model.dart';
 
 class MyMixturesCreateNew extends StatefulWidget {
-  const MyMixturesCreateNew({super.key});
+  const MyMixturesCreateNew({super.key, this.myMixturesModel});
+  final MyMixturesModel? myMixturesModel;
 
   @override
   State<MyMixturesCreateNew> createState() => _MyMixturesCreateNewState();
@@ -18,6 +20,16 @@ class MyMixturesCreateNew extends StatefulWidget {
 class _MyMixturesCreateNewState extends State<MyMixturesCreateNew> {
   var textController = TextEditingController();
   var cardsList = <CardModel>[];
+
+  @override
+  void initState() {
+    if (widget.myMixturesModel != null) {
+      textController.text = widget.myMixturesModel!.name;
+      cardsList = widget.myMixturesModel!.cardsList;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,13 +53,19 @@ class _MyMixturesCreateNewState extends State<MyMixturesCreateNew> {
                   decoration: InputDecoration(
                     hintText: 'Tap here to change the name'.toUpperCase(),
                     hintStyle: const TextStyle(
-                        color: Colors.white, fontSize: 40, fontFamily: 'Cuprum', fontWeight: FontWeight.w700),
+                        color: Colors.white,
+                        fontSize: 40,
+                        fontFamily: 'Cuprum',
+                        fontWeight: FontWeight.w700),
                     alignLabelWithHint: true,
                     border: InputBorder.none,
                   ),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                      color: Colors.white, fontSize: 40, fontFamily: 'Cuprum', fontWeight: FontWeight.w700),
+                      color: Colors.white,
+                      fontSize: 40,
+                      fontFamily: 'Cuprum',
+                      fontWeight: FontWeight.w700),
                 ),
                 Flexible(
                   child: ListView.builder(
@@ -59,49 +77,58 @@ class _MyMixturesCreateNewState extends State<MyMixturesCreateNew> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                InkWell(
-                    onTap: () async {
-                      if (cardsList.length >= 4) {
-                        return;
-                      }
-                      var result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Scaffold(
-                                    body: Stack(
-                                      fit: StackFit.expand,
-                                      children: [
-                                        Image.asset(
-                                          AssetsFlameImages.bg_createnew,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        const BaseBackButton(),
-                                        const CardsView(
-                                          forMixture: true,
-                                        ),
-                                      ],
-                                    ),
-                                  )));
-
-                      if (result != null) {
-                        setState(() {
-                          if (cardsList.contains(result)) {
-                            cardsList.remove(result);
-                            return;
-                          }
-                          cardsList.add(result);
-                        });
-                      }
-                    },
-                    child: Image.asset(
-                      AssetsFlameImages.game_addition,
-                    )),
                 Visibility(
-                  visible: cardsList.isNotEmpty,
+                  visible:
+                      cardsList.length < 4 && widget.myMixturesModel == null,
+                  child: InkWell(
+                      onTap: () async {
+                        if (cardsList.length >= 4) {
+                          return;
+                        }
+                        var result = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Scaffold(
+                                      body: Stack(
+                                        fit: StackFit.expand,
+                                        children: [
+                                          Image.asset(
+                                            AssetsFlameImages.bg_createnew,
+                                            fit: BoxFit.cover,
+                                          ),
+                                          const BaseBackButton(),
+                                          const CardsView(
+                                            forMixture: true,
+                                          ),
+                                        ],
+                                      ),
+                                    )));
+
+                        if (result != null) {
+                          setState(() {
+                            if (cardsList.contains(result)) {
+                              cardsList.remove(result);
+                              return;
+                            }
+                            cardsList.add(result);
+                          });
+                        }
+                      },
+                      child: Image.asset(
+                        AssetsFlameImages.game_addition,
+                      )),
+                ),
+                Visibility(
+                  visible:
+                      cardsList.isNotEmpty && widget.myMixturesModel == null,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 40.0),
                     child: InkWell(
                       onTap: () {
+                        if (AppStorage.soundEnabled.val) {
+                          FlameAudio.play('save_tie.wav', volume: 0.7);
+                        }
+
                         AppStorage.myMixtures.val = [
                           ...AppStorage.myMixtures.val,
                           MyMixturesModel(
@@ -132,7 +159,8 @@ class _MyMixturesCreateNewState extends State<MyMixturesCreateNew> {
 
 class UpperCaseTextFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     return TextEditingValue(
       text: newValue.text.toUpperCase(),
       selection: newValue.selection,

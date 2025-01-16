@@ -1,5 +1,7 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:game/app/module/game/pages/cards/cards_model.dart';
+import 'package:game/data/storage/storage.dart';
 import 'package:game/generated/assets_flame_images.dart';
 
 class CardsView extends StatefulWidget {
@@ -43,7 +45,9 @@ class _CardsViewState extends State<CardsView> {
         );
       }).toList();
     } else {
-      return cardList.where((element) => element.category == currentCategory).map((cardModel) {
+      return cardList
+          .where((element) => element.category == currentCategory)
+          .map((cardModel) {
         return InkWell(
             onTap: () {
               if (widget.forMixture) {
@@ -68,8 +72,11 @@ class _CardsViewState extends State<CardsView> {
           ),
           Text(
             getCategoryLabel().toUpperCase(),
-            style:
-                const TextStyle(color: Colors.white, fontSize: 40, fontFamily: 'Cuprum', fontWeight: FontWeight.w700),
+            style: const TextStyle(
+                color: Colors.white,
+                fontSize: 40,
+                fontFamily: 'Cuprum',
+                fontWeight: FontWeight.w700),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,13 +86,20 @@ class _CardsViewState extends State<CardsView> {
                       ? AssetsFlameImages.game_a_cup_of_tea_on_a_plate
                       : AssetsFlameImages.game_tea_cup_with_leaf_in_it,
                   0),
-              tab(currentCategory == 1 ? AssetsFlameImages.game_rose : AssetsFlameImages.game_rose_illustration, 1),
+              tab(
+                  currentCategory == 1
+                      ? AssetsFlameImages.game_rose
+                      : AssetsFlameImages.game_rose_illustration,
+                  1),
               tab(
                   currentCategory == 2
                       ? AssetsFlameImages.game_lemon_slice_on_yellow_background
                       : AssetsFlameImages.game_lemon_slice,
                   2),
-              tab(currentCategory == 3 ? AssetsFlameImages.game_rainbow_leaf_1 : AssetsFlameImages.game_rainbow_leaf,
+              tab(
+                  currentCategory == 3
+                      ? AssetsFlameImages.game_rainbow_leaf_1
+                      : AssetsFlameImages.game_rainbow_leaf,
                   3),
               tab(
                   currentCategory == 4
@@ -108,6 +122,9 @@ class _CardsViewState extends State<CardsView> {
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
           onTap: () {
+            if (AppStorage.soundEnabled.val) {
+              FlameAudio.play('swap_kategories.wav', volume: 0.7);
+            }
             setState(() {
               currentCategory = id;
             });

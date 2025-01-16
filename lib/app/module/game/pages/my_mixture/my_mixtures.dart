@@ -18,9 +18,13 @@ class _MyMixturesViewState extends State<MyMixturesView> {
 
   @override
   void initState() {
+    loadMixtures();
+    super.initState();
+  }
+
+  loadMixtures() {
     var list = AppStorage.myMixtures.val;
     myMixtures = (list).map((e) => MyMixturesModel.fromStorage(e)).toList();
-    super.initState();
   }
 
   @override
@@ -47,23 +51,46 @@ class _MyMixturesViewState extends State<MyMixturesView> {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Stack(
-                          alignment: Alignment.centerLeft,
-                          children: [
-                            Image.asset(AssetsFlameImages.game_water_pitcher_on_book),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20.0),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.6,
-                                child: Text(
-                                  myMixtures[index].name,
-                                  maxLines: 3,
-                                  style:
-                                      const TextStyle(fontSize: 20, fontFamily: 'Cuprum', fontWeight: FontWeight.w700),
+                        child: Dismissible(
+                          key: Key(myMixtures[index].id),
+                          onDismissed: (v) {
+                            setState(() {
+                              myMixtures[index].removeFromStorage();
+                              loadMixtures();
+                            });
+                          },
+                          child: InkWell(
+                            onTap: () async {
+                              await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyMixturesCreateNew(
+                                            myMixturesModel: myMixtures[index],
+                                          )));
+                            },
+                            child: Stack(
+                              alignment: Alignment.centerLeft,
+                              children: [
+                                Image.asset(AssetsFlameImages
+                                    .game_water_pitcher_on_book),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20.0),
+                                  child: SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.6,
+                                    child: Text(
+                                      myMixtures[index].name,
+                                      maxLines: 3,
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          fontFamily: 'Cuprum',
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
                       );
                     }),
@@ -74,7 +101,9 @@ class _MyMixturesViewState extends State<MyMixturesView> {
               child: InkWell(
                   onTap: () async {
                     var result = await Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => const MyMixturesCreateNew()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MyMixturesCreateNew()));
                     if (result != null) {
                       setState(() {
                         myMixtures.add(result);

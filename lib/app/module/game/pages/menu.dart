@@ -1,4 +1,6 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
+import 'package:game/data/storage/storage.dart';
 import 'package:game/generated/assets_flame_images.dart';
 
 import '../../../app.dart';
@@ -11,6 +13,21 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  @override
+  void initState() {
+    audioStart();
+    super.initState();
+  }
+
+  audioStart() async {
+    FlameAudio.bgm.initialize();
+    await FlameAudio.bgm.play('background.mp3', volume: 0.7);
+
+    if (!AppStorage.musicEnabled.val) {
+      await FlameAudio.bgm.pause();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,25 +50,29 @@ class _MenuState extends State<Menu> {
                           onTap: () {
                             Navigator.pushNamed(context, Routes.all);
                           },
-                          child: Image.asset(AssetsFlameImages.game_herbal_tea_collection)),
+                          child: Image.asset(
+                              AssetsFlameImages.game_herbal_tea_collection)),
                       const SizedBox(height: 20),
                       InkWell(
                           onTap: () {
                             Navigator.pushNamed(context, Routes.myMixtures);
                           },
-                          child: Image.asset(AssetsFlameImages.game_mixtured_potions)),
+                          child: Image.asset(
+                              AssetsFlameImages.game_mixtured_potions)),
                       const SizedBox(height: 20),
                       InkWell(
                           onTap: () {
                             Navigator.pushNamed(context, Routes.achivments);
                           },
-                          child: Image.asset(AssetsFlameImages.game_achievement_icons)),
+                          child: Image.asset(
+                              AssetsFlameImages.game_achievement_icons)),
                       const SizedBox(height: 20),
                       InkWell(
                           onTap: () {
                             Navigator.pushNamed(context, Routes.settings);
                           },
-                          child: Image.asset(AssetsFlameImages.game_settings_gear)),
+                          child: Image.asset(
+                              AssetsFlameImages.game_settings_gear)),
                       const SizedBox(height: 100),
                     ],
                   ),
