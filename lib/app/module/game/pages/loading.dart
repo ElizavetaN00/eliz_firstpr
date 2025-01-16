@@ -12,13 +12,16 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(seconds: 1), () {
+  void didChangeDependencies() async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      for (var element in AssetsFlameImages.all) {
+        await precacheImage(AssetImage('assets/images/$element'), context);
+      }
+      await Future.delayed(const Duration(seconds: 1), () {
         if (mounted) Navigator.pushReplacementNamed(context, Routes.menu);
       });
     });
+    super.didChangeDependencies();
   }
 
   @override
@@ -59,7 +62,8 @@ class LoopingSpinAnimation extends StatefulWidget {
   _LoopingSpinAnimationState createState() => _LoopingSpinAnimationState();
 }
 
-class _LoopingSpinAnimationState extends State<LoopingSpinAnimation> with SingleTickerProviderStateMixin {
+class _LoopingSpinAnimationState extends State<LoopingSpinAnimation>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override

@@ -3,6 +3,7 @@ import 'package:game/app/module/game/pages/achivments.dart';
 import 'package:game/app/module/game/pages/all.dart';
 import 'package:game/app/module/game/pages/my_mixture/my_mixtures.dart';
 import 'package:game/app/module/game/pages/settings.dart';
+import '../generated/assets_flame_images.dart';
 import 'module/game/pages/loading.dart';
 import 'module/game/pages/menu.dart';
 import 'module/init/init_view.dart';
