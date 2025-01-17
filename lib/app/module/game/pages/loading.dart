@@ -4,23 +4,54 @@ import 'package:game/generated/assets_flame_images.dart';
 import '../../../app.dart';
 
 class Loading extends StatefulWidget {
-  const Loading({super.key});
-
+  const Loading({super.key, required this.appcontext});
+  final BuildContext appcontext;
   @override
   State<Loading> createState() => _LoadingState();
+}
+
+void printImageCacheInfo() {
+  PaintingBinding.instance.imageCache.maximumSize = 2000; // 2000 объектов
+  PaintingBinding.instance.imageCache.maximumSizeBytes =
+      300 * 1024 * 1024; // 300 МБ
 }
 
 class _LoadingState extends State<Loading> {
   @override
   void didChangeDependencies() async {
+    printImageCacheInfo();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      var imageList = [
+        AssetsFlameImages.bg_achievements_bookshelf,
+        AssetsFlameImages
+            .bg_book_and_cups_of_magic_teas_in_a_mysterious_setting,
+        AssetsFlameImages.bg_createnew,
+        AssetsFlameImages.bg_magical_library_bookshelf_gemstones,
+        AssetsFlameImages.bg_magicians_herbs,
+        AssetsFlameImages.bg_my_mixtures_books_and_teapot,
+        AssetsFlameImages.bg_settings_book_image,
+        AssetsFlameImages
+            .game_a_capsule_icon_with_a_vibrant_colorful_design_likely_used_to_represent_health_or_wellness_in_a_digital_interface,
+        AssetsFlameImages.game_a_cup_of_tea_on_a_plate,
+        AssetsFlameImages.game_lemon_slice,
+        AssetsFlameImages.game_pill,
+        AssetsFlameImages.game_rainbow_leaf,
+        AssetsFlameImages.game_rainbow_leaf_1,
+        AssetsFlameImages.game_rose,
+        AssetsFlameImages.game_rose_illustration,
+        AssetsFlameImages.game_lemon_slice,
+        AssetsFlameImages.game_lemon_slice_on_yellow_background,
+        AssetsFlameImages.game_tea_cup_with_leaf_in_it,
+      ];
+
       for (var element in AssetsFlameImages.all) {
-        await precacheImage(AssetImage('assets/images/$element'), context);
+        await precacheImage(AssetImage(element), widget.appcontext);
       }
       await Future.delayed(const Duration(seconds: 1), () {
         if (mounted) Navigator.pushReplacementNamed(context, Routes.menu);
       });
     });
+
     super.didChangeDependencies();
   }
 

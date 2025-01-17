@@ -61,12 +61,17 @@ class _MyMixturesViewState extends State<MyMixturesView> {
                           },
                           child: InkWell(
                             onTap: () async {
-                              await Navigator.push(
+                              var result = await Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => MyMixturesCreateNew(
                                             myMixturesModel: myMixtures[index],
                                           )));
+                              if (result != null) {
+                                setState(() {
+                                  loadMixtures();
+                                });
+                              }
                             },
                             child: Stack(
                               alignment: Alignment.centerLeft,

@@ -17,7 +17,9 @@ class MyApp extends StatelessWidget {
       title: 'Magician’s Herbs',
       routes: {
         '/': (_) => const InitView(),
-        Routes.loading: (_) => const Loading(),
+        Routes.loading: (_) => Loading(
+              appcontext: context,
+            ),
         Routes.menu: (_) => const Menu(),
         Routes.settings: (_) => const Settings(),
         Routes.achivments: (_) => const Achivments(),

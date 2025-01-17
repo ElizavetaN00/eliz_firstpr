@@ -23,8 +23,10 @@ class _SettingsState extends State<Settings> {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            Image.asset(
-              AssetsFlameImages.bg_settings_book_image,
+            Image(
+              image: AssetImage(
+                AssetsFlameImages.bg_settings_book_image,
+              ),
               fit: BoxFit.cover,
             ),
             const BaseBackButton(),

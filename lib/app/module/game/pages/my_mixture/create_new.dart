@@ -119,8 +119,7 @@ class _MyMixturesCreateNewState extends State<MyMixturesCreateNew> {
                       )),
                 ),
                 Visibility(
-                  visible:
-                      cardsList.isNotEmpty && widget.myMixturesModel == null,
+                  visible: cardsList.isNotEmpty,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 40.0),
                     child: InkWell(
@@ -128,7 +127,9 @@ class _MyMixturesCreateNewState extends State<MyMixturesCreateNew> {
                         if (AppStorage.soundEnabled.val) {
                           FlameAudio.play('save_tie.wav', volume: 0.7);
                         }
-
+                        if (widget.myMixturesModel != null) {
+                          widget.myMixturesModel!.removeFromStorage();
+                        }
                         AppStorage.myMixtures.val = [
                           ...AppStorage.myMixtures.val,
                           MyMixturesModel(
@@ -136,6 +137,7 @@ class _MyMixturesCreateNewState extends State<MyMixturesCreateNew> {
                             cardsList: cardsList,
                           ).toStorage()
                         ];
+
                         Navigator.pop(
                             context,
                             MyMixturesModel(
