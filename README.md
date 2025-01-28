@@ -25,11 +25,11 @@ samples, guidance on mobile development, and a full API reference.
 
 # generate package name:
 
-    dart run change_app_package_name:main com.herbaetcollect
+    dart run change_app_package_name:main com.flymyreptileok
 
 # rename app:
 
-    dart run rename_app:main all="Magician’s Herbs"
+    dart run rename_app:main all="Endless Dragon"
 
 # launcher_icon generator
 

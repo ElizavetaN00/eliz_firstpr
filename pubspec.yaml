@@ -67,10 +67,10 @@ flutter:
   assets:
     - assets/images/
     - assets/images/game/
-    - assets/images/bg/
     - assets/images/settings/
-    - assets/images/cards/
-    - assets/audio/
+    - assets/images/preview/
+    - assets/images/preloader/
+    - assets/images/menu/
 
   #   - images/a_dot_ham.jpeg
 

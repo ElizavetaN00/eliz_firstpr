@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ThrillRun',
+      title: 'Endless Dragon',
       routes: {'/': (_) => const InitView()},
       initialRoute: '/',
     );

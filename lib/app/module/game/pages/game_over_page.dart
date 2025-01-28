@@ -1,5 +1,7 @@
 import 'package:flame/components.dart';
-import 'package:flutter/painting.dart';
+import 'package:flutter/material.dart';
+import 'package:game/app/module/game/components/background_component.dart';
+import 'package:game/generated/assets_flame_images.dart';
 
 import '../../../../data/storage/storage.dart';
 import '../components/logical_size_component.dart';
@@ -9,7 +11,8 @@ import '../thrill_run_game.dart';
 class GameOverPage extends Component with HasGameReference<ThrillRunGame> {
   @override
   Future<void> onLoad() async {
-    final overFrame = await game.images.load('pop_up/frame.png');
+    final overFrame = await game.images
+        .load(AssetsFlameImages.game_pop_up_game_over_BG_pop_up_game_over);
     final scoreComponent = TextComponent(
       text: AppStorage.lastScore.val.toString(),
       anchor: Anchor.topCenter,
@@ -35,11 +38,12 @@ class GameOverPage extends Component with HasGameReference<ThrillRunGame> {
       },
     );
     addAll([
+      Background(Colors.black),
       SpriteComponent(
-          sprite: Sprite(overFrame),
-          position: game.canvasSize / 2,
-          anchor: Anchor.center,
-          size: LogicalSize.logicalSize(720, 720)),
+        sprite: Sprite(overFrame),
+        position: game.canvasSize,
+        anchor: Anchor.center,
+      ),
       scoreComponent,
       playAgainSprite,
     ]);
