@@ -12,6 +12,8 @@ abstract class AppStorage {
   static final box = GetStorage();
   static final answeredQuestions = [].val('answeredQuestions', defVal: []);
   static final soundEnabled = true.val('soundEnabled');
+  static final lastScore = 0.val('lastScore');
+  static final bestMiles = 0.val('bestMiles');
 
   static final musicEnabled = true.val('musicEnabled');
 

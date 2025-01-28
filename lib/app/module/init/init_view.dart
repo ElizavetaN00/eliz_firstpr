@@ -1,8 +1,9 @@
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../app.dart';
+import '../game/thrill_run_game.dart';
 
 class InitView extends StatefulWidget {
   const InitView({super.key});
@@ -20,9 +21,14 @@ class _InitViewState extends State<InitView> {
 
   init() async {
     await GetStorage.init();
-    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    await SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.pushReplacementNamed(context, Routes.loading);
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (_) => WillPopScope(
+              onWillPop: () async => false,
+              child: GameWidget(game: ThrillRunGame()))));
     });
   }
 
