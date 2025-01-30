@@ -66,11 +66,16 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/images/game/animation_flight/
     - assets/images/game/
+    - assets/images/game/animation_run_and_jump/
+    - assets/images/game/pop-up_game_over/
+    - assets/images/game/pop-up_you_win/
     - assets/images/settings/
     - assets/images/preview/
     - assets/images/preloader/
     - assets/images/menu/
+    - assets/audio/
 
   #   - images/a_dot_ham.jpeg
 
