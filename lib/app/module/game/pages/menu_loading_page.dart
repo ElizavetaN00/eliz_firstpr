@@ -6,15 +6,12 @@ import '../components/rotating_image_component.dart';
 import '../thrill_run_game.dart';
 import '../components/logical_size_component.dart';
 
-class MenuLoadingPage extends LogicalSizeComponent<ThrillRunGame>
-    with TapCallbacks {
+class MenuLoadingPage extends LogicalSizeComponent<ThrillRunGame> with TapCallbacks {
   @override
   Future<void> onLoad() async {
-    final imageBg =
-        Flame.images.fromCache(AssetsFlameImages.preloader_BG_Loader);
+    final imageBg = Flame.images.fromCache(AssetsFlameImages.preloader_BG_Loader);
     final imageLogo = Flame.images.fromCache(AssetsFlameImages.preloader_logo);
-    final spinnerImage =
-        Flame.images.fromCache(AssetsFlameImages.preloader_spiner);
+    final spinnerImage = Flame.images.fromCache(AssetsFlameImages.preloader_spiner);
     final spinnerSprite = Sprite(spinnerImage);
     addAll([
       SpriteComponent(
@@ -47,8 +44,8 @@ class MenuLoadingPage extends LogicalSizeComponent<ThrillRunGame>
   }
 
   pushToMenu() async {
-    await Future.delayed(Duration(seconds: 1));
-    game.router.pushNamed('menu');
+    await Future.delayed(const Duration(seconds: 1));
+    game.router.pushNamed('fly');
   }
 
   @override

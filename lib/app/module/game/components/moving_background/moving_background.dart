@@ -1,8 +1,7 @@
 import 'package:flame/components.dart';
 import '../../thrill_run_game.dart';
 
-class MovingBackground extends PositionComponent
-    with HasGameRef<ThrillRunGame> {
+class MovingBackground extends PositionComponent with HasGameRef<ThrillRunGame> {
   final double speed;
   late SpriteComponent background1;
   late SpriteComponent background2;

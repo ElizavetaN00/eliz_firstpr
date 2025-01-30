@@ -8,7 +8,7 @@ class AssetsFlameImages {
   static const game_animation_flight_Group_2 = 'game/animation_flight/Group-2.png';
   static const game_animation_flight_Group_3 = 'game/animation_flight/Group-3.png';
   static const game_animation_flight_Group_4 = 'game/animation_flight/Group-4.png';
-  static const game_animation_flight_Group = 'game/animation_flight/Group.png';
+  static const game_animation_flight_Group = 'game/animation_flight/Group-5.png';
   static const game_animation_run_and_jump_Group_1 = 'game/animation_run_and_jump/Group-1.png';
   static const game_animation_run_and_jump_Group_10 = 'game/animation_run_and_jump/Group-10.png';
   static const game_animation_run_and_jump_Group_11 = 'game/animation_run_and_jump/Group-11.png';
@@ -20,7 +20,7 @@ class AssetsFlameImages {
   static const game_animation_run_and_jump_Group_7 = 'game/animation_run_and_jump/Group-7.png';
   static const game_animation_run_and_jump_Group_8 = 'game/animation_run_and_jump/Group-8.png';
   static const game_animation_run_and_jump_Group_9 = 'game/animation_run_and_jump/Group-9.png';
-  static const game_animation_run_and_jump_Group = 'game/animation_run_and_jump/Group.png';
+  static const game_animation_run_and_jump_Group = 'game/animation_run_and_jump/Group-12.png';
   static const game_button_settings = 'game/button_settings.png';
   static const game_chec = 'game/chec.png';
   static const game_itam_1_big = 'game/itam_1_big.png';

@@ -6,14 +6,14 @@ import '../../../../../data/storage/storage.dart';
 import '../../thrill_run_game.dart';
 import '../logical_size_component.dart';
 
-class PlayerComponent extends SpriteAnimationComponent with HasGameRef<ThrillRunGame>, CollisionCallbacks {
-  PlayerComponent({required this.onCollisionStartFunc});
+class PlayerComponentFly extends SpriteAnimationComponent with HasGameRef<ThrillRunGame>, CollisionCallbacks {
+  PlayerComponentFly({required this.onCollisionStartFunc});
 
   final double gravity = 300; // Сила гравитации
 
-  double get jumpVelocity => LogicalSize.logicalHight(-1000); // Начальная скорость прыжка
+  double get jumpVelocity => LogicalSize.logicalHight(-300); // Начальная скорость прыжка
 
-  double velocityY = 100; // Текущая вертикальная скорость
+  double velocityY = 0; // Текущая вертикальная скорость
 
   bool isOnGround = true; // Флаг, указывающий, находится ли игрок на земле
 
@@ -21,33 +21,22 @@ class PlayerComponent extends SpriteAnimationComponent with HasGameRef<ThrillRun
   double timer = 0;
 
   late SpriteAnimation runAnimation;
-  late SpriteAnimation jumpAnimation;
 
   @override
   Future<void> onLoad() async {
     debugMode = true;
 
-    final spritesRun = [12, 1, 2, 3, 4, 5, 6];
-    final spritesJump = [7, 8, 9, 10, 11, 4, 5, 6];
+    final spritesRun = [1, 2, 3, 4, 5];
 
     for (var sprite in spritesRun) {
-      await Flame.images.load('game/animation_run_and_jump/Group-$sprite.png');
-    }
-    for (var sprite in spritesJump) {
-      await Flame.images.load('game/animation_run_and_jump/Group-$sprite.png');
+      await Flame.images.load('game/animation_flight/Group-$sprite.png');
     }
 
-    var runSprites = spritesRun.map((i) => Sprite.load('game/animation_run_and_jump/Group-$i.png'));
-    var jumpSprites = spritesJump.map((i) => Sprite.load('game/animation_run_and_jump/Group-$i.png'));
+    var runSprites = spritesRun.map((i) => Sprite.load('game/animation_flight/Group-$i.png'));
 
     runAnimation = SpriteAnimation.spriteList(
       await Future.wait(runSprites),
-      stepTime: 0.1,
-    );
-
-    jumpAnimation = SpriteAnimation.spriteList(
-      await Future.wait(jumpSprites),
-      stepTime: 0.1,
+      stepTime: 0.08,
     );
 
     animation = runAnimation;
@@ -55,10 +44,12 @@ class PlayerComponent extends SpriteAnimationComponent with HasGameRef<ThrillRun
     anchor = Anchor.bottomLeft;
     position = Vector2(
       LogicalSize.logicalWidth(380),
-      gameRef.canvasSize.y - 24,
+      gameRef.canvasSize.y / 2,
     );
+
     size = LogicalSize.logicalSize(683, 300);
-    add(RectangleHitbox(size: size / 1.5, position: size / 1.5, anchor: Anchor.center));
+    size = size / 1.2;
+    add(RectangleHitbox(size: size, position: Vector2(size.x, 0), anchor: Anchor.topRight));
   }
 
   @override
@@ -74,23 +65,18 @@ class PlayerComponent extends SpriteAnimationComponent with HasGameRef<ThrillRun
       isOnGround = true; // Устанавливаем флаг, что игрок на земле
       animation = runAnimation; // Включаем анимацию бега
       playing = true;
+    } else if (y <= 0) {
+      y = 0; // Ограничиваем верхнюю границу
+      velocityY = 0; // Сбрасываем скорость
     } else {
-      animation = jumpAnimation; // Включаем анимацию прыжка
       playing = true;
     }
     timer = dt + timer;
   }
 
   void jump() {
-    if (isOnGround) {
-      if (AppStorage.soundEnabled.val) {
-        FlameAudio.play('jump.flac');
-      }
-      velocityY = jumpVelocity; // Устанавливаем начальную скорость прыжка
-      isOnGround = false; // Флаг, что игрок в воздухе
-      animation = jumpAnimation; // Включаем анимацию прыжка
-      playing = true;
-    }
+    velocityY = jumpVelocity; // Устанавливаем начальную скорость прыжка
+    playing = true;
   }
 
   @override

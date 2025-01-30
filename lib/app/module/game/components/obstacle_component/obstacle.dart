@@ -3,22 +3,27 @@ import 'package:flame/components.dart';
 
 import '../../thrill_run_game.dart';
 
-class ObstacleComponent extends SpriteComponent
-    with HasGameReference<ThrillRunGame> {
+class ObstacleComponent extends SpriteComponent with HasGameReference<ThrillRunGame> {
   ObstacleComponent({
     required this.speed,
     required Vector2 position,
-    required Vector2 size,
     required this.image,
-  }) : super(position: position, size: size);
+    this.verticalMirror = false,
+  }) : super(position: position);
   final String image;
+  final bool verticalMirror;
   final double speed;
 
   @override
   Future<void> onLoad() async {
+    debugMode = true;
     sprite = await Sprite.load(image);
-    add(RectangleHitbox(
-        size: size / 2, anchor: Anchor.center, position: size / 2));
+
+    size = size / 3;
+    if (verticalMirror) {
+      flipVertically();
+    }
+    add(CircleHitbox(radius: size.y / 2, anchor: Anchor.center, position: size / 2));
   }
 
   @override
